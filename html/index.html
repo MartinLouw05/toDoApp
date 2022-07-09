@@ -17,10 +17,8 @@
                         What To-Do, What To-Do?
                     </h1>
                 </div>
-                <div class="col-lg-6">
-                    <p>
-                        loading...
-                    </p>
+                <div class="col-lg-6">                    
+                    Welcome to "What To-Do, What To-Do?".  Here you can plan and keep up with your daily tasks. 
                 </div>
             </div>
         </header>
@@ -29,13 +27,46 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">                
-                        <button class="btnCreate">Create New List</button>                                       
-                        <button class="btnView">View All Lists</button>                                       
-                        <button class="btnView">To Be Decided</button>                                       
+                        <button class="btnCreate">
+                            <img src="/images/to-do-list-icon-buy-this-icon-for--0-48-1.png" alt="Create Task Image Not Found" class="btnImage"><br>
+                            Create New Task
+                        </button>    
+
+                        <button class="btnViewTasks">
+                            <img src="/images/" alt="TBD Not Found" class="btnImage"><br>
+                            View All Tasks
+                        </button>  
+                        
+                        <button class="btnToday">
+                            <img src="/images/" alt="Image Not Found" class="btnImage"><br>
+                            Today's Tasks
+                        </button>
                     </div>                
                     <div class="col-md-8">
-                        <div class="listView">
-                            list
+                        <div class="taskDisplay">  
+                            <section class="displayTodaysTasks">
+                                <h3>
+                                    Today's Tasks
+                                </h3>
+                            </section> 
+
+                            <section class="displayAllTasks">
+                                <h3>
+                                    Tasks
+                                </h3>
+                            </section>
+
+                            <section class="displayTaskItems">
+                                <h3 id="taskName">
+
+                                </h3>
+                            </section>
+
+                            <section class="createTask">
+                                <h3>
+                                    Create New Task
+                                </h3>
+                            </section>
                         </div>
                     </div>        
                 </div>  
@@ -68,7 +99,7 @@
                         “Concentrate all your thoughts upon the work in hand. The sun's rays do not burn until brought to a focus.” - Alexander Graham Bell
                     </div>
                     <div class="carousel-item">
-                        “If I had eight hours to chop down a tree, I'd spend six hours sharpening my ax.” - Abraham Lincoln
+                        “If I had eight hours to chop down a tree, I'd spend six hours sharpening my axe.” - Abraham Lincoln
                     </div>
                     <div class="carousel-item">
                         “If you want to make an easy job seem mighty hard, just keep putting off doing it.” - Olin Miller
