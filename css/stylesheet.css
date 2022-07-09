@@ -54,6 +54,14 @@ footer {
     margin-top: 10px;
 }
 
+.carousel-inner {
+    font-style: italic;
+}
+
+.carousel-inner > .item {
+    transition: 1s;
+}
+
 @media only screen and (max-width: 600px) { 
 
 }
