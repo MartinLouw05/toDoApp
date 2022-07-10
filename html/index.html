@@ -3,6 +3,7 @@
     <!-- Links -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/stylesheet.css">
+    <script src="/javascript/navigation.js" defer></script>
 
     <head>
         <title>
@@ -17,7 +18,7 @@
                         What To-Do, What To-Do?
                     </h1>
                 </div>
-                <div class="col-lg-6">                    
+                <div class="col-lg-6 introText">                    
                     Welcome to "What To-Do, What To-Do?".  Here you can plan and keep up with your daily tasks. 
                 </div>
             </div>
@@ -27,23 +28,18 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">                
-                        <button class="btnCreate">
+                        <button id="topButton" class="btnCreateTop">
                             <img src="/images/to-do-list-icon-buy-this-icon-for--0-48-1.png" alt="Create Task Image Not Found" class="btnImage"><br>
                             Create New Task
                         </button>    
 
-                        <button class="btnViewTasks">
+                        <button id="bottomButton" class="btnViewTasks">
                             <img src="/images/" alt="TBD Not Found" class="btnImage"><br>
                             View All Tasks
                         </button>  
-                        
-                        <button class="btnToday">
-                            <img src="/images/" alt="Image Not Found" class="btnImage"><br>
-                            Today's Tasks
-                        </button>
                     </div>                
                     <div class="col-md-8">
-                        <div class="taskDisplay">  
+                        <div id="taskDisplay" class="taskDisplay"> 
                             <section class="displayTodaysTasks">
                                 <h3>
                                     Today's Tasks
