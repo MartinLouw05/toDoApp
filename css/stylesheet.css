@@ -30,20 +30,52 @@
     color: white;
 }
 
+ul {
+    list-style: none;
+}
+
 .displayTodaysTasks {
-    display: block;
+    display: none;
+}
+
+.tasksHeader {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin: 0.5rem 0;
+    background-color: #813772;
+    color: white;
+    margin-left: -40px;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.tasksEntries {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background-color: #e7dfdd;
+    color: black;
+    margin-left: -40px;
+    margin-right: 5px;
+    padding: 5px;
+    border: solid;
+    border-width: 1px;
+    border-color: #813772;
+    word-wrap: break-word;
+}
+
+.listButton {
+    width: 25%;
+    height: 33.3px;
+    margin-right: 3px;
+    font-size: xx-small;
 }
 
 .displayAllTasks {
     display: none;
 }
 
-.displayTaskItems {
-    display: none;
-}
-
 .createTask {
-    display: none;
+    display: block;
 }
 
 button {
@@ -66,20 +98,28 @@ button {
 
 .btnCreateTop {
     display: block;
+    text-transform: uppercase;
+    font-size: x-large;
 }
 
 .btnCreateBottom {
     display: block;
     margin-top: 10px;
+    text-transform: uppercase;
+    font-size: x-large;
 }
 
 .btnViewTasks {    
     display: block;
     margin-top: 10px;
+    text-transform: uppercase;
+    font-size: x-large;
 }
 
 .btnToday {
     display: block;
+    text-transform: uppercase;
+    font-size: x-large;
 }
 
 footer { 
