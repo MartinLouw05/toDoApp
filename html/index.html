@@ -69,7 +69,7 @@
 
                             <section class="displayAllTasks">
                                 <h3>
-                                    Tasks
+                                    All Tasks
                                 </h3>
                                 <ul id="allTasksList">
                                     <li class="tasksHeader">
@@ -95,11 +95,44 @@
                             </section>
 
                             <section class="createTask">
-                                <h3>
+                                <h3 class="formHeader">
                                     Create New Task
                                 </h3>
                                 <form>
-                                    
+                                    <div class="formContent">                                        
+                                        <div>
+                                            <label>Task Name</label>
+                                        </div>
+                                        <div>
+                                            <input type="text" id="taskName" required>           
+                                        </div>                                        
+                                        <div>
+                                            <label>Description</label>
+                                        </div>
+                                        <div>
+                                            <textarea></textarea>
+                                        </div>
+                                        <div>
+                                            <label>Urgency</label>
+                                        </div>
+                                        <div>
+                                            <select>
+                                                <option>Major</option>
+                                                <option>Medium</option>
+                                                <option>Minor</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label>Due Date</label>
+                                        </div>
+                                        <div>
+                                            <input type="date">
+                                        </div>
+                                        <div>
+                                            <button class="formButtonSubmit">Submit</button>
+                                            <button class="formButtonClear">Clear</button>
+                                        </div>
+                                    </div>
                                 </form>
                             </section>
                         </div>
