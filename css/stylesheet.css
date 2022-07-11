@@ -36,7 +36,7 @@ ul {
 
 .tasksHeader {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     margin: 0.5rem 0;
     background-color: #813772;
     color: white;
@@ -45,9 +45,9 @@ ul {
     padding: 5px;
 }
 
-.tasksEntries {
+.tasksEntries, .allTasksEntries {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     background-color: #e7dfdd;
     color: black;
     margin-left: -40px;
