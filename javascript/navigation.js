@@ -17,6 +17,7 @@ topButton.addEventListener('click', (e) => {
         bottomButton.innerHTML += "View All Tasks";
 
         changeDisplay(allTasks, 'none');
+        changeDisplay(createTask, 'none');
         changeDisplay(todaysTasks, 'block');
     }
     else if (topButton.className == "btnCreateTop") {
@@ -25,6 +26,7 @@ topButton.addEventListener('click', (e) => {
         topButton.innerHTML += "Today's Tasks";
 
         changeDisplay(todaysTasks, 'none');
+        changeDisplay(allTasks, 'none');
         changeDisplay(createTask, 'block');
     }
     else if (topButton.className == "btnToday") {
@@ -33,6 +35,7 @@ topButton.addEventListener('click', (e) => {
         topButton.innerHTML += "Create New Task";
 
         changeDisplay(createTask, 'none');
+        changeDisplay(allTasks, 'none');
         changeDisplay(todaysTasks, 'block');
     }
     else {
@@ -51,6 +54,7 @@ bottomButton.addEventListener('click', (e) => {
         topButton.innerHTML += "Today's Tasks";
 
         changeDisplay(todaysTasks, 'none');
+        changeDisplay(createTask, 'none');
         changeDisplay(allTasks, 'block');
     }
     else if (bottomButton.className == "btnCreateBottom") {
@@ -59,6 +63,7 @@ bottomButton.addEventListener('click', (e) => {
         bottomButton.innerHTML += "View All Tasks";
 
         changeDisplay(allTasks, 'none');
+        changeDisplay(todaysTasks, 'none');
         changeDisplay(createTask, 'block');
     }
     else {

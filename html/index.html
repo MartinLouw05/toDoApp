@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/stylesheet.css">
     <script src="/javascript/navigation.js" defer></script>
+    <script src="/javascript/tasks.js" defer></script>
 
     <head>
         <title>
@@ -59,7 +60,6 @@
                                         <span>Minor</span>
                                         <span>15/06/2022</span>
                                         <span>
-                                            <button class="listButton">Comp</button>
                                             <button class="listButton">Edit</button>
                                             <button class="listButton">Del</button>
                                         </span>
@@ -86,7 +86,6 @@
                                         <span>Minor</span>
                                         <span>15/06/2022</span>
                                         <span>
-                                            <button class="listButton">Comp</button>
                                             <button class="listButton">Edit</button>
                                             <button class="listButton">Del</button>
                                         </span>
@@ -110,27 +109,33 @@
                                             <label>Description</label>
                                         </div>
                                         <div>
-                                            <textarea></textarea>
+                                            <textarea id="taskDescription" required></textarea>
                                         </div>
                                         <div>
-                                            <label>Urgency</label>
+                                            <label>Priority</label>
                                         </div>
                                         <div>
-                                            <select>
-                                                <option>Major</option>
+                                            <select id="taskPriority" required>
+                                                <option>Low</option>
                                                 <option>Medium</option>
-                                                <option>Minor</option>
+                                                <option>High</option>
                                             </select>
                                         </div>
                                         <div>
                                             <label>Due Date</label>
                                         </div>
                                         <div>
-                                            <input type="date">
+                                            <input type="date" id="taskDate" required>
                                         </div>
                                         <div>
-                                            <button class="formButtonSubmit">Submit</button>
-                                            <button class="formButtonClear">Clear</button>
+                                            <label>Time</label>
+                                        </div>
+                                        <div>
+                                            <input type="time" id="taskTime" required>
+                                        </div>
+                                        <div>
+                                            <button id="btnFormSubmit" class="formButtonSubmit">Submit</button>
+                                            <button id="btnFormClear" class="formButtonClear">Clear</button>
                                         </div>
                                     </div>
                                 </form>

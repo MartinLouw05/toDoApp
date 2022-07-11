@@ -96,6 +96,10 @@ form input, textarea, select {
     margin-bottom: 10px;
 }
 
+textarea {
+    min-height: 200px;
+}
+
 .formHeader {
     text-align: center;
     background-color: #813772;
