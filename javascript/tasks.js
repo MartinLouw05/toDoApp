@@ -181,7 +181,6 @@ function createAllTasksList(dataArray) {
     console.log(arrayLength);
 
     for (i = 0; i < arrayLength; i++) {
-        console.log(i)
         console.log("You are creating the ALL TASKS LIST");
 
         const newListEntry = document.createElement('li');
@@ -233,6 +232,9 @@ function createAllTasksList(dataArray) {
 
     changeStatus();
     taskManipulation();
+
+    const sortSelection = document.getElementById("sortList");
+    sortSelection.click();
 }
 
 function taskManipulation() {
@@ -268,5 +270,88 @@ function clearList() {
     }
 }
 
+//Sort Tasks
+const sortSelection = document.getElementById("sortList");
 
+let list = localStorage.getItem("tasksData");
+let jsList = JSON.parse(list);
 
+sortSelection.addEventListener('click', (e) => {
+    let sortValue = e.target.value;
+
+    if (sortValue == "Name") {
+        let test = jsList.sort(sortByName);
+        console.log(test);
+        clearList();
+        createAllTasksList(test);
+    }
+    else if (sortValue == "Priority") {
+        let test = jsList.sort(sortByPriotity);
+        console.log(test);
+        clearList();
+        createAllTasksList(test);
+    }
+    else if (sortValue == "Date") {
+        let test = jsList.sort(sortByDate);
+        console.log(test);
+        clearList();
+        createAllTasksList(test);
+    }
+    else {
+        console.log("Something Went Wring While Attempting To Sort a List");
+    }
+});
+
+function sortByName(a, b) {
+    if (a.objTaskName < b.objTaskName) {
+        return -1;
+    }
+    else if (a.objTaskName > b.objTaskName) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
+function sortByPriotity(a, b) {
+    if (a.objTaskPriority < b.objTaskPriority) {
+        return -1;
+    }
+    else if (a.objTaskPriority > b.objTaskPriority) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
+function sortByDate(a, b) {
+    if (a.objTaskDate < b.objTaskDate) {
+        return -1;
+    }
+    else if (a.objTaskDate > b.objTaskDate) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
+/*
+function compare( a, b ) {
+    if ( a.objTaskDate < b.objTaskDate ){
+      return -1;
+    }
+    if ( a.objTaskDate > b.objTaskDate ){
+      return 1;
+    }
+    return 0;
+  }
+  
+  let list = localStorage.getItem("tasksData");
+  let jsList = JSON.parse(list);
+
+  let test = jsList.sort(compare);
+  console.log(test);
+  */
