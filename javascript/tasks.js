@@ -157,7 +157,99 @@ function changeStatus() {
     }
 }
 
+//HTML Load
+window.onload = function() {
+    if (topButton.className == "btnCreateTop") {
+        let list = localStorage.getItem("tasksData");
+        let jsList = JSON.parse(list);
+
+        createTodaysList(jsList);
+    }
+    else {
+        console.log("Something Went Wrong While Attempting to Generate Today's Task List")
+    }
+}
+
 //Create Today's Task List
+const todaysTasksList = document.getElementById("topButton");
+
+todaysTasksList.addEventListener('click', (e) => {
+    if (todaysTasksList.className == "btnCreateTop") {
+        let list = localStorage.getItem("tasksData");
+        let jsList = JSON.parse(list);
+
+        createTodaysList(jsList);
+    }
+    else {
+        console.log("Something Went Wrong While Attempting to Generate Today's Task List")
+    }
+});
+
+function createTodaysList(dataArray) {
+    let arrayLength = dataArray.length;
+
+    for (i = 0; i < arrayLength; i++) {
+        console.log("You are creating the Todays Task List");
+
+        let entriesArray = [];
+
+        let today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+
+        if (today == dataArray[i].objTaskDate) {
+            const newListEntry = document.createElement('li');
+            newListEntry.className = "allTasksEntries";
+            newListEntry.id = i;
+
+            entriesArray.push(dataArray[i].objTaskName);
+            entriesArray.push(dataArray[i].objTaskDescription);
+            entriesArray.push(dataArray[i].objTaskPriority);
+            entriesArray.push(dataArray[i].objTaskDate);
+            entriesArray.push(dataArray[i].objTaskTime);
+            
+            let entriesArrayLength = entriesArray.length;
+            
+            for (x = 0; x < entriesArrayLength; x++) {
+                const listData = document.createElement('span');
+                let listEntry = document.createTextNode(entriesArray[x]);
+                listData.appendChild(listEntry);
+
+                newListEntry.append(listData);
+            }          
+
+            //List Buttons
+            const spanBtn = document.createElement('span'); 
+
+            const editButton = document.createElement('button');
+            const deleteButton = document.createElement('button');
+
+            editButton.className = "listEditButton";
+            deleteButton.className = "listDeleteButton";
+
+            let editBtn = document.createTextNode("Edit");
+            let deleteBtn = document.createTextNode("Del");
+
+            editButton.appendChild(editBtn);
+            deleteButton.appendChild(deleteBtn);
+
+            spanBtn.append(editButton);
+            spanBtn.append(deleteButton);
+
+            newListEntry.append(spanBtn);
+
+            const todaysTasksList = document.getElementById("todaysTasksList");       
+            todaysTasksList.append(newListEntry);
+            console.log(todaysTasksList);  
+        }
+        else {
+            console.log("This task is NOT scheduled for Today");
+        }
+    }
+}
 
 //Create Full Task List
 const viewAllTasks = document.getElementById("bottomButton");
@@ -166,13 +258,13 @@ viewAllTasks.addEventListener('click', (e) => {
     if (viewAllTasks.className == "btnCreateBottom") {
         let tasksData = localStorage.getItem("tasksData");
         let myJSONData = JSON.parse(tasksData);
-        console.log(myJSONData);
+        console.log(myJSONData);        
 
         clearList();
         createAllTasksList(myJSONData);
     }
     else {
-        console.log("Something went wrong");
+        console.log("Something Went Wrong While Attempting to Generate the All Tasks List");
     }
 });
 
@@ -273,10 +365,9 @@ function clearList() {
 //Sort Tasks
 const sortSelection = document.getElementById("sortList");
 
-let list = localStorage.getItem("tasksData");
-let jsList = JSON.parse(list);
-
 sortSelection.addEventListener('click', (e) => {
+    let list = localStorage.getItem("tasksData");
+    let jsList = JSON.parse(list);
     let sortValue = e.target.value;
 
     if (sortValue == "Name") {
