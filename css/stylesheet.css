@@ -59,7 +59,7 @@ ul {
     word-wrap: break-word;
 }
 
-.listButton {
+.listEditButton, .listDeleteButton {
     width: 25%;
     height: 33.3px;
     margin-right: 3px;

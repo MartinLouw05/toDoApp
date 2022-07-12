@@ -116,12 +116,6 @@ function saveLocalStorage(taskArray) {
     }
 }
 
-//Edit Task
-
-
-//Delete Task
-
-
 //Complete Task
 class Completion extends Tasks {
     constructor(taskName, taskDescription, taskPriority, taskDate, taskTime, taskStatus) {
@@ -149,6 +143,7 @@ class Completion extends Tasks {
     }
 }
 
+//Change Task Status
 function changeStatus() {
     let selectedEntry = document.getElementsByClassName("allTasksEntries");
     let length = selectedEntry.length;
@@ -217,8 +212,8 @@ function createAllTasksList(dataArray) {
         const editButton = document.createElement('button');
         const deleteButton = document.createElement('button');
 
-        editButton.className = "listButton";
-        deleteButton.className = "listButton";
+        editButton.className = "listEditButton";
+        deleteButton.className = "listDeleteButton";
 
         let editBtn = document.createTextNode("Edit");
         let deleteBtn = document.createTextNode("Del");
@@ -235,9 +230,34 @@ function createAllTasksList(dataArray) {
         allTasksList.append(newListEntry);
         console.log(allTasksList);        
     }
+
     changeStatus();
+    taskManipulation();
 }
 
+function taskManipulation() {
+    //Edit Task
+    let editTask = document.getElementsByClassName("listEditButton");
+    let editBtnCount = editTask.length;
+
+    for (i = 0; i < editBtnCount; i++) {
+        editTask[i].addEventListener('click', (e) => {
+            console.log("Attempting to EDIT a Task");
+        });
+    }
+
+    //Delete Task
+    const deleteTask = document.getElementsByClassName("listDeleteButton");
+    let deleteBtnCount = deleteTask.length;
+
+    for (i = 0; i < deleteBtnCount; i++) {
+        deleteTask[i].addEventListener('click', (e) => {
+            console.log("Attempting to DELETE a Task");
+        });
+    }
+}
+
+//Clear Tasks List
 function clearList() {
     console.log("attempting to clear list")
     const list = document.getElementsByClassName("allTasksEntries");
@@ -247,5 +267,6 @@ function clearList() {
         console.log("list item removed");
     }
 }
+
 
 
