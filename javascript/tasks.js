@@ -5,6 +5,8 @@ const taskPriorityInput = document.getElementById("taskPriority");
 const taskDateInput = document.getElementById("taskDate");
 const taskTimeInput = document.getElementById("taskTime");
 
+//localStorage.removeItem("tasksData");
+
 taskNameInput.addEventListener('focus', (e) => {
     e.target.value = '';
 });
@@ -49,7 +51,8 @@ class Tasks {
     createTask(newTask) {
         console.log("You are now creating a Task");
         this._toDoList.push(newTask);
-        console.log(data);
+        console.log(data);        
+        saveLocalStorage(this.toDoList);
         completeTaskCreation();
     }
 }
@@ -80,9 +83,44 @@ function completeTaskCreation() {
     allTasksButton.click();
 }
 
+function saveLocalStorage(taskArray) {
+    let myArray = JSON.stringify(taskArray);
+    console.log(myArray)
+    let myJSON = JSON.parse(myArray);
+    console.log(myJSON);  
+
+    const existingData = localStorage.getItem("tasksData");
+    console.log(existingData);
+
+    if (existingData == null) {
+        let userData = JSON.stringify(myJSON);
+
+        localStorage.setItem("tasksData", userData);
+        console.log("local storage successfully saved");
+    }
+    else if (existingData !== null) {
+        let myJSONArray = JSON.parse(existingData);
+        localStorage.removeItem("tasksData");
+        console.log(myJSONArray);
+    
+        let finalArray = myJSONArray.concat(myJSON);
+        console.log(finalArray);
+        let userData = JSON.stringify(finalArray);
+
+        localStorage.setItem("tasksData", userData);
+        console.log("local storage successfully saved");
+    }
+    else {
+        console.log("Something Went Wrong When Attempting to Create a Task");
+    }
+}
+
 //Edit Task
+//localStorage.removeItem("objData")
+
 
 //Delete Task
+
 
 //Complete Task
 class Completion extends Tasks {
@@ -128,10 +166,14 @@ function changeStatus() {
 
 //Create Full Task List
 const viewAllTasks = document.getElementById("bottomButton");
+let tasksData = localStorage.getItem("tasksData");
+let myJSONData = JSON.parse(tasksData);
+console.log(myJSONData);
 
 viewAllTasks.addEventListener('click', (e) => {
     if (viewAllTasks.className == "btnCreateBottom") {
-        createAllTasksList(addTask.toDoList);
+        clearList();
+        createAllTasksList(myJSONData);
     }
     else {
         console.log("Something went wrong");
@@ -167,9 +209,22 @@ function createAllTasksList(dataArray) {
         }
 
         const allTasksList = document.getElementById("allTasksList");
+        console.log(allTasksList)
         allTasksList.append(newListEntry);
 
         changeStatus();
+    }
+}
+
+function clearList() {
+    console.log("attempting to clear list")
+    const list = document.getElementsByClassName("allTasksEntries");
+    console.log(list)
+    console.log(list.length)
+
+    while (list.length > 0) {
+        list[0].remove();
+        console.log("list item removed")
     }
 }
 
