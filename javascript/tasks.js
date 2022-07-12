@@ -62,6 +62,7 @@ const sumbitTask = document.getElementById("btnFormSubmit");
 
 let data = addTask.toDoList;
 
+//Create Task
 sumbitTask.addEventListener('click', (e) => {
     e.preventDefault();
     let taskName = taskNameInput.value;
@@ -116,7 +117,6 @@ function saveLocalStorage(taskArray) {
 }
 
 //Edit Task
-//localStorage.removeItem("objData")
 
 
 //Delete Task
@@ -166,12 +166,13 @@ function changeStatus() {
 
 //Create Full Task List
 const viewAllTasks = document.getElementById("bottomButton");
-let tasksData = localStorage.getItem("tasksData");
-let myJSONData = JSON.parse(tasksData);
-console.log(myJSONData);
 
 viewAllTasks.addEventListener('click', (e) => {
     if (viewAllTasks.className == "btnCreateBottom") {
+        let tasksData = localStorage.getItem("tasksData");
+        let myJSONData = JSON.parse(tasksData);
+        console.log(myJSONData);
+
         clearList();
         createAllTasksList(myJSONData);
     }
@@ -181,9 +182,11 @@ viewAllTasks.addEventListener('click', (e) => {
 });
 
 function createAllTasksList(dataArray) {
-    arrayLength = dataArray.length;
+    let arrayLength = dataArray.length;
+    console.log(arrayLength);
 
     for (i = 0; i < arrayLength; i++) {
+        console.log(i)
         console.log("You are creating the ALL TASKS LIST");
 
         const newListEntry = document.createElement('li');
@@ -208,23 +211,40 @@ function createAllTasksList(dataArray) {
             newListEntry.append(listData);
         }
 
-        const allTasksList = document.getElementById("allTasksList");
-        console.log(allTasksList)
-        allTasksList.append(newListEntry);
+        //List Buttons
+        const spanBtn = document.createElement('span'); 
 
-        changeStatus();
+        const editButton = document.createElement('button');
+        const deleteButton = document.createElement('button');
+
+        editButton.className = "listButton";
+        deleteButton.className = "listButton";
+
+        let editBtn = document.createTextNode("Edit");
+        let deleteBtn = document.createTextNode("Del");
+
+        editButton.appendChild(editBtn);
+        deleteButton.appendChild(deleteBtn);
+
+        spanBtn.append(editButton);
+        spanBtn.append(deleteButton);
+
+        newListEntry.append(spanBtn);
+
+        const allTasksList = document.getElementById("allTasksList");       
+        allTasksList.append(newListEntry);
+        console.log(allTasksList);        
     }
+    changeStatus();
 }
 
 function clearList() {
     console.log("attempting to clear list")
     const list = document.getElementsByClassName("allTasksEntries");
-    console.log(list)
-    console.log(list.length)
 
     while (list.length > 0) {
         list[0].remove();
-        console.log("list item removed")
+        console.log("list item removed");
     }
 }
 
