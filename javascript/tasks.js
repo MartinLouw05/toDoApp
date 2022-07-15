@@ -58,24 +58,29 @@ class Tasks {
     }
 }
 
+//Create Task
 const addTask = new Tasks();
 const sumbitTask = document.getElementById("btnFormSubmit");
 
 let data = addTask.toDoList;
 
-//Create Task
 sumbitTask.addEventListener('click', (e) => {
-    e.preventDefault();
-    let taskName = taskNameInput.value;
-    let taskDescription = taskDescriptionInput.value;
-    let taskPriority = taskPriorityInput.value;
-    let taskDate = taskDateInput.value;
-    let taskTime = taskTimeInput.value;
-
-    let taskObj = { objTaskName : taskName, objTaskDescription : taskDescription, objTaskPriority : taskPriority, objTaskDate : taskDate, objTaskTime : taskTime };
-
-    addTask.createTask(taskObj);
-    console.log("Task Data Submitted");    
+    if (sumbitTask.id == "btnFormSubmit") {
+        e.preventDefault();
+        let taskName = taskNameInput.value;
+        let taskDescription = taskDescriptionInput.value;
+        let taskPriority = taskPriorityInput.value;
+        let taskDate = taskDateInput.value;
+        let taskTime = taskTimeInput.value;
+    
+        let taskObj = { objTaskName : taskName, objTaskDescription : taskDescription, objTaskPriority : taskPriority, objTaskDate : taskDate, objTaskTime : taskTime };
+    
+        addTask.createTask(taskObj);
+        console.log("Task Data Submitted");  
+    }
+    else {
+        console.log("You are NOT creating a NEW task");
+    }  
 });
 
 function completeTaskCreation() {
@@ -170,6 +175,8 @@ const todaysTasksList = document.getElementById("topButton");
 
 todaysTasksList.addEventListener('click', (e) => {
     if (todaysTasksList.className == "btnCreateTop") {
+        clearList();
+
         let list = localStorage.getItem("tasksData");
         let jsList = JSON.parse(list);
 
@@ -332,7 +339,63 @@ function allTasksListManipulation() {
     for (i = 0; i < editBtnCount; i++) {
         editTask[i].addEventListener('click', (e) => {
             console.log("Attempting to EDIT a Task");
-        });
+            const editTask = document.getElementById("bottomButton");
+            editTask.click();
+            
+            let selectedTask = e.path[2].id;
+            let data = localStorage.getItem("tasksData");
+            let jsData = JSON.parse(data);
+            
+            let editName = jsData[selectedTask].objTaskName;
+            let editDescription = jsData[selectedTask].objTaskDescription;
+            let editPriority = jsData[selectedTask].objTaskPriority;
+            let editDate = jsData[selectedTask].objTaskDate;
+            let editTime = jsData[selectedTask].objTaskTime;
+
+            let taskNameInput = document.getElementById("taskName");
+            let taskDescriptionInput = document.getElementById("taskDescription");
+            let taskPriorityInput = document.getElementById("taskPriority");
+            let taskDateInput = document.getElementById("taskDate");
+            let taskTimeInput = document.getElementById("taskTime");
+
+            //Edit Form
+            taskNameInput.value = editName;
+            taskDescriptionInput.value = editDescription;
+            taskPriorityInput.value = editPriority;
+            taskDateInput.value = editDate;
+            taskTimeInput.value = editTime;
+           
+            const formHeader = document.getElementById("formHeader");
+            formHeader.innerHTML = "Edit Task";
+
+            const submitButton = document.getElementById("btnFormSubmit");
+            submitButton.id = "btnEditFormSubmit";
+
+            const editSubmitButton = document.getElementById("btnEditFormSubmit");
+
+            editSubmitButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem("tasksData");
+                jsData.splice(selectedTask, 1);
+
+                let taskName = taskNameInput.value;
+                let taskDescription = taskDescriptionInput.value;
+                let taskPriority = taskPriorityInput.value;
+                let taskDate = taskDateInput.value;
+                let taskTime = taskTimeInput.value;
+
+                let taskObj = { objTaskName : taskName, objTaskDescription : taskDescription, objTaskPriority : taskPriority, objTaskDate : taskDate, objTaskTime : taskTime };
+
+                jsData.push(taskObj);
+                let data = JSON.stringify(jsData);
+                localStorage.setItem("tasksData", data);              
+
+                console.log("Task Has Been Successfully Edited");
+
+                const allTasksButton = document.getElementById("bottomButton");
+                allTasksButton.click();
+            })
+        })
     }
 
     //Delete Task
@@ -390,15 +453,44 @@ function taskManipulation() {
             let taskDateInput = document.getElementById("taskDate");
             let taskTimeInput = document.getElementById("taskTime");
 
+            //Edit Form
             taskNameInput.value = editName;
             taskDescriptionInput.value = editDescription;
             taskPriorityInput.value = editPriority;
             taskDateInput.value = editDate;
             taskTimeInput.value = editTime;
-
+           
             const formHeader = document.getElementById("formHeader");
             formHeader.innerHTML = "Edit Task";
-        });
+
+            const submitButton = document.getElementById("btnFormSubmit");
+            submitButton.id = "btnEditFormSubmit";
+
+            const editSubmitButton = document.getElementById("btnEditFormSubmit");
+
+            editSubmitButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem("tasksData");
+                jsData.splice(selectedTask, 1);
+
+                let taskName = taskNameInput.value;
+                let taskDescription = taskDescriptionInput.value;
+                let taskPriority = taskPriorityInput.value;
+                let taskDate = taskDateInput.value;
+                let taskTime = taskTimeInput.value;
+
+                let taskObj = { objTaskName : taskName, objTaskDescription : taskDescription, objTaskPriority : taskPriority, objTaskDate : taskDate, objTaskTime : taskTime };
+
+                jsData.push(taskObj);
+                let data = JSON.stringify(jsData);
+                localStorage.setItem("tasksData", data);
+
+                alert("Task Has Been Successfully Edited");
+
+                const allTasksButton = document.getElementById("bottomButton");
+                allTasksButton.click();
+            })
+        })
     }
 
     //Delete Task

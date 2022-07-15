@@ -30,6 +30,7 @@ topButton.addEventListener('click', (e) => {
         changeDisplay(createTask, 'block');
 
         document.getElementById("formHeader").innerHTML = "Create New Task";
+        changeSubmitButton();
     }
     else if (topButton.className == "btnToday") {
         topButton.className = "btnCreateTop";
@@ -69,6 +70,7 @@ bottomButton.addEventListener('click', (e) => {
         changeDisplay(createTask, 'block');
         
         document.getElementById("formHeader").innerHTML = "Create New Task";
+        changeSubmitButton();
     }
     else {
         console.log("ERROR. Something Went Wrong With The Bottom Button");
@@ -81,5 +83,17 @@ function changeDisplay(tab, display) {
 
     for(i = 0; i < tabLength; i++) {
         tab[i].style["display"] = display;
+    }
+};
+
+function changeSubmitButton() {
+    const submitButton = document.getElementById("btnFormSubmit");
+    const editButton = document.getElementById("btnEditFormSubmit");
+
+    if (submitButton == null) {
+        editButton.id = "btnFormSubmit";
+    }
+    else {
+        console.log("The Submit Button is Correct");
     }
 };
