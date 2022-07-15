@@ -28,6 +28,8 @@ topButton.addEventListener('click', (e) => {
         changeDisplay(todaysTasks, 'none');
         changeDisplay(allTasks, 'none');
         changeDisplay(createTask, 'block');
+
+        document.getElementById("formHeader").innerHTML = "Create New Task";
     }
     else if (topButton.className == "btnToday") {
         topButton.className = "btnCreateTop";
@@ -65,6 +67,8 @@ bottomButton.addEventListener('click', (e) => {
         changeDisplay(allTasks, 'none');
         changeDisplay(todaysTasks, 'none');
         changeDisplay(createTask, 'block');
+        
+        document.getElementById("formHeader").innerHTML = "Create New Task";
     }
     else {
         console.log("ERROR. Something Went Wrong With The Bottom Button");

@@ -50,10 +50,11 @@ class Tasks {
     //Create Task
     createTask(newTask) {
         console.log("You are now creating a Task");
-        this._toDoList.push(newTask);
-        console.log(data);        
+        this._toDoList.push(newTask);       
         saveLocalStorage(this.toDoList);
         completeTaskCreation();
+
+        this._toDoList = [];
     }
 }
 
@@ -86,12 +87,9 @@ function completeTaskCreation() {
 
 function saveLocalStorage(taskArray) {
     let myArray = JSON.stringify(taskArray);
-    console.log(myArray)
-    let myJSON = JSON.parse(myArray);
-    console.log(myJSON);  
+    let myJSON = JSON.parse(myArray); 
 
     const existingData = localStorage.getItem("tasksData");
-    console.log(existingData);
 
     if (existingData == null) {
         let userData = JSON.stringify(myJSON);
@@ -102,10 +100,8 @@ function saveLocalStorage(taskArray) {
     else if (existingData !== null) {
         let myJSONArray = JSON.parse(existingData);
         localStorage.removeItem("tasksData");
-        console.log(myJSONArray);
     
         let finalArray = myJSONArray.concat(myJSON);
-        console.log(finalArray);
         let userData = JSON.stringify(finalArray);
 
         localStorage.setItem("tasksData", userData);
@@ -150,8 +146,7 @@ function changeStatus() {
 
     for (i = 0; i < length; i++) {
         selectedEntry[i].addEventListener('dblclick', (e) => {     
-            //ERROR RETURNING WINDOW AND NOT ELEMENT
-            let select = this.id;
+            let select = e.path[1].id;
             document.getElementById(select).style.textDecoration = "line-through";
         })
     }
@@ -243,12 +238,14 @@ function createTodaysList(dataArray) {
 
             const todaysTasksList = document.getElementById("todaysTasksList");       
             todaysTasksList.append(newListEntry);
-            console.log(todaysTasksList);  
         }
         else {
             console.log("This task is NOT scheduled for Today");
         }
     }
+
+    changeStatus();
+    taskManipulation();
 }
 
 //Create Full Task List
@@ -256,11 +253,11 @@ const viewAllTasks = document.getElementById("bottomButton");
 
 viewAllTasks.addEventListener('click', (e) => {
     if (viewAllTasks.className == "btnCreateBottom") {
-        let tasksData = localStorage.getItem("tasksData");
-        let myJSONData = JSON.parse(tasksData);
-        console.log(myJSONData);        
-
         clearList();
+
+        let tasksData = localStorage.getItem("tasksData");
+        let myJSONData = JSON.parse(tasksData);  
+
         createAllTasksList(myJSONData);
     }
     else {
@@ -270,7 +267,6 @@ viewAllTasks.addEventListener('click', (e) => {
 
 function createAllTasksList(dataArray) {
     let arrayLength = dataArray.length;
-    console.log(arrayLength);
 
     for (i = 0; i < arrayLength; i++) {
         console.log("You are creating the ALL TASKS LIST");
@@ -318,18 +314,17 @@ function createAllTasksList(dataArray) {
         newListEntry.append(spanBtn);
 
         const allTasksList = document.getElementById("allTasksList");       
-        allTasksList.append(newListEntry);
-        console.log(allTasksList);        
+        allTasksList.append(newListEntry);      
     }
 
     changeStatus();
-    taskManipulation();
+    allTasksListManipulation();
 
     const sortSelection = document.getElementById("sortList");
     sortSelection.click();
 }
 
-function taskManipulation() {
+function allTasksListManipulation() {
     //Edit Task
     let editTask = document.getElementsByClassName("listEditButton");
     let editBtnCount = editTask.length;
@@ -347,6 +342,85 @@ function taskManipulation() {
     for (i = 0; i < deleteBtnCount; i++) {
         deleteTask[i].addEventListener('click', (e) => {
             console.log("Attempting to DELETE a Task");
+            let select = e.path[2].id;
+            document.getElementById(select).remove();
+
+            let savedData = localStorage.getItem("tasksData");
+            localStorage.removeItem("tasksData");
+            let jsonSavedData = JSON.parse(savedData);
+            
+            for (x = 0; x < jsonSavedData.length; x++) {
+                
+            }
+            
+            //jsonSavedData.splice(select, 1);
+            alert("Task Successfully Deleted");
+
+            let newData = JSON.stringify(jsonSavedData);
+            localStorage.setItem("tasksData", newData);
+            console.log("local storage updated");            
+        });
+    }
+}
+
+function taskManipulation() {
+    //Edit Task
+    let editTask = document.getElementsByClassName("listEditButton");
+    let editBtnCount = editTask.length;
+
+    for (i = 0; i < editBtnCount; i++) {
+        editTask[i].addEventListener('click', (e) => {
+            console.log("Attempting to EDIT a Task");
+            const editTask = document.getElementById("topButton");
+            editTask.click();
+            
+            let selectedTask = e.path[2].id;
+            let data = localStorage.getItem("tasksData");
+            let jsData = JSON.parse(data);
+            
+            let editName = jsData[selectedTask].objTaskName;
+            let editDescription = jsData[selectedTask].objTaskDescription;
+            let editPriority = jsData[selectedTask].objTaskPriority;
+            let editDate = jsData[selectedTask].objTaskDate;
+            let editTime = jsData[selectedTask].objTaskTime;
+
+            let taskNameInput = document.getElementById("taskName");
+            let taskDescriptionInput = document.getElementById("taskDescription");
+            let taskPriorityInput = document.getElementById("taskPriority");
+            let taskDateInput = document.getElementById("taskDate");
+            let taskTimeInput = document.getElementById("taskTime");
+
+            taskNameInput.value = editName;
+            taskDescriptionInput.value = editDescription;
+            taskPriorityInput.value = editPriority;
+            taskDateInput.value = editDate;
+            taskTimeInput.value = editTime;
+
+            const formHeader = document.getElementById("formHeader");
+            formHeader.innerHTML = "Edit Task";
+        });
+    }
+
+    //Delete Task
+    const deleteTask = document.getElementsByClassName("listDeleteButton");
+    let deleteBtnCount = deleteTask.length;
+
+    for (i = 0; i < deleteBtnCount; i++) {
+        deleteTask[i].addEventListener('click', (e) => {
+            console.log("Attempting to DELETE a Task");
+            let select = e.path[2].id;
+            document.getElementById(select).remove();
+
+            let savedData = localStorage.getItem("tasksData");
+            localStorage.removeItem("tasksData");
+            let jsonSavedData = JSON.parse(savedData);
+            
+            jsonSavedData.splice(select, 1);
+            alert("Task Successfully Deleted");
+
+            let newData = JSON.stringify(jsonSavedData);
+            localStorage.setItem("tasksData", newData);
+            console.log("local storage updated");            
         });
     }
 }
@@ -372,19 +446,16 @@ sortSelection.addEventListener('click', (e) => {
 
     if (sortValue == "Name") {
         let test = jsList.sort(sortByName);
-        console.log(test);
         clearList();
         createAllTasksList(test);
     }
     else if (sortValue == "Priority") {
         let test = jsList.sort(sortByPriotity);
-        console.log(test);
         clearList();
         createAllTasksList(test);
     }
     else if (sortValue == "Date") {
         let test = jsList.sort(sortByDate);
-        console.log(test);
         clearList();
         createAllTasksList(test);
     }
