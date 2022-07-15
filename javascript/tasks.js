@@ -188,71 +188,76 @@ todaysTasksList.addEventListener('click', (e) => {
 });
 
 function createTodaysList(dataArray) {
-    let arrayLength = dataArray.length;
+    if (dataArray !== null) {
+        let arrayLength = dataArray.length;
 
-    for (i = 0; i < arrayLength; i++) {
-        console.log("You are creating the Todays Task List");
+        for (i = 0; i < arrayLength; i++) {
+            console.log("You are creating the Todays Task List");
 
-        let entriesArray = [];
+            let entriesArray = [];
 
-        let today = new Date();
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0');
-        var yyyy = today.getFullYear();
+            let today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
 
-        today = yyyy + '-' + mm + '-' + dd;
+            today = yyyy + '-' + mm + '-' + dd;
 
-        if (today == dataArray[i].objTaskDate) {
-            const newListEntry = document.createElement('li');
-            newListEntry.className = "allTasksEntries";
-            newListEntry.id = i;
+            if (today == dataArray[i].objTaskDate) {
+                const newListEntry = document.createElement('li');
+                newListEntry.className = "allTasksEntries";
+                newListEntry.id = i;
 
-            entriesArray.push(dataArray[i].objTaskName);
-            entriesArray.push(dataArray[i].objTaskDescription);
-            entriesArray.push(dataArray[i].objTaskPriority);
-            entriesArray.push(dataArray[i].objTaskDate);
-            entriesArray.push(dataArray[i].objTaskTime);
-            
-            let entriesArrayLength = entriesArray.length;
-            
-            for (x = 0; x < entriesArrayLength; x++) {
-                const listData = document.createElement('span');
-                let listEntry = document.createTextNode(entriesArray[x]);
-                listData.appendChild(listEntry);
+                entriesArray.push(dataArray[i].objTaskName);
+                entriesArray.push(dataArray[i].objTaskDescription);
+                entriesArray.push(dataArray[i].objTaskPriority);
+                entriesArray.push(dataArray[i].objTaskDate);
+                entriesArray.push(dataArray[i].objTaskTime);
+                
+                let entriesArrayLength = entriesArray.length;
+                
+                for (x = 0; x < entriesArrayLength; x++) {
+                    const listData = document.createElement('span');
+                    let listEntry = document.createTextNode(entriesArray[x]);
+                    listData.appendChild(listEntry);
 
-                newListEntry.append(listData);
-            }          
+                    newListEntry.append(listData);
+                }          
 
-            //List Buttons
-            const spanBtn = document.createElement('span'); 
+                //List Buttons
+                const spanBtn = document.createElement('span'); 
 
-            const editButton = document.createElement('button');
-            const deleteButton = document.createElement('button');
+                const editButton = document.createElement('button');
+                const deleteButton = document.createElement('button');
 
-            editButton.className = "listEditButton";
-            deleteButton.className = "listDeleteButton";
+                editButton.className = "listEditButton";
+                deleteButton.className = "listDeleteButton";
 
-            let editBtn = document.createTextNode("Edit");
-            let deleteBtn = document.createTextNode("Del");
+                let editBtn = document.createTextNode("Edit");
+                let deleteBtn = document.createTextNode("Del");
 
-            editButton.appendChild(editBtn);
-            deleteButton.appendChild(deleteBtn);
+                editButton.appendChild(editBtn);
+                deleteButton.appendChild(deleteBtn);
 
-            spanBtn.append(editButton);
-            spanBtn.append(deleteButton);
+                spanBtn.append(editButton);
+                spanBtn.append(deleteButton);
 
-            newListEntry.append(spanBtn);
+                newListEntry.append(spanBtn);
 
-            const todaysTasksList = document.getElementById("todaysTasksList");       
-            todaysTasksList.append(newListEntry);
+                const todaysTasksList = document.getElementById("todaysTasksList");       
+                todaysTasksList.append(newListEntry);
+            }
+            else {
+                console.log("This task is NOT scheduled for Today");
+            }
         }
-        else {
-            console.log("This task is NOT scheduled for Today");
-        }
+
+        changeStatus();
+        taskManipulation();
     }
-
-    changeStatus();
-    taskManipulation();
+    else {
+        console.log("No Tasks Data Found");
+    }
 }
 
 //Create Full Task List
@@ -336,15 +341,16 @@ function allTasksListManipulation() {
     let editTask = document.getElementsByClassName("listEditButton");
     let editBtnCount = editTask.length;
 
+    let data = localStorage.getItem("tasksData");
+    let jsData = JSON.parse(data);
+
     for (i = 0; i < editBtnCount; i++) {
         editTask[i].addEventListener('click', (e) => {
             console.log("Attempting to EDIT a Task");
-            const editTask = document.getElementById("bottomButton");
-            editTask.click();
+            const bottomBtn = document.getElementById("bottomButton");
+            bottomBtn.click();
             
-            let selectedTask = e.path[2].id;
-            let data = localStorage.getItem("tasksData");
-            let jsData = JSON.parse(data);
+            let selectedTask = e.path[2].id;           
             
             let editName = jsData[selectedTask].objTaskName;
             let editDescription = jsData[selectedTask].objTaskDescription;
@@ -377,21 +383,21 @@ function allTasksListManipulation() {
                 e.preventDefault();
                 localStorage.removeItem("tasksData");
                 jsData.splice(selectedTask, 1);
-
+        
                 let taskName = taskNameInput.value;
                 let taskDescription = taskDescriptionInput.value;
                 let taskPriority = taskPriorityInput.value;
                 let taskDate = taskDateInput.value;
                 let taskTime = taskTimeInput.value;
-
+        
                 let taskObj = { objTaskName : taskName, objTaskDescription : taskDescription, objTaskPriority : taskPriority, objTaskDate : taskDate, objTaskTime : taskTime };
-
+        
                 jsData.push(taskObj);
                 let data = JSON.stringify(jsData);
                 localStorage.setItem("tasksData", data);              
-
-                console.log("Task Has Been Successfully Edited");
-
+        
+                alert("Task Has Been Successfully Edited");
+        
                 const allTasksButton = document.getElementById("bottomButton");
                 allTasksButton.click();
             })
