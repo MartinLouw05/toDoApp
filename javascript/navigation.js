@@ -41,7 +41,6 @@ topButton.addEventListener('click', (e) => {
         topButton.innerHTML = "<img src=\"/images/to-do-list-icon-buy-this-icon-for--0-48-1.png\" alt=\"Create Task Image Not Found\" class=\"btnImage\"><br>";
         topButton.innerHTML += "Create New Task";
 
-        formEditButton.style.display = 'none';
         changeDisplay(createTask, 'none');
         changeDisplay(allTasks, 'none');
         changeDisplay(todaysTasks, 'block');
