@@ -361,12 +361,34 @@ function allTasksListManipulation() {
         editTask[i].addEventListener('click', (e) => {
             console.log("Attempting to EDIT a Task");
             const bottomBtn = document.getElementById("bottomButton");
-            bottomBtn.click();
-            
-            selectedTask = e.path[2].id;   
+            bottomBtn.click();           
+
+            //Edit Correct Task
+            let selectedName = e.path[2].childNodes[0].innerHTML;
+            let selectedDescription = e.path[2].childNodes[1].innerHTML;
+            let selectedPriority = e.path[2].childNodes[2].innerHTML;
+            let selectedDate = e.path[2].childNodes[3].innerHTML;
+            let selectedTime = e.path[2].childNodes[4].innerHTML;
+            let selectedObj = { objTaskName : selectedName, objTaskDescription : selectedDescription, objTaskPriority : selectedPriority, objTaskDate : selectedDate, objTaskTime : selectedTime };
+            let stringObj = JSON.stringify(selectedObj);
+            let length = jsData.length;
+            console.log(stringObj);
+
+            for (i = 0; i < length; i++) {
+                if (JSON.stringify(jsData[i]) == stringObj) {
+                    console.log(i)
+                    console.log(jsData[i]);
+                    selectedTask = i;
+                }
+                else {
+                    console.log("Not This Entry");
+                }
+            }
+
+            //selectedTask = e.path[2].id;   
             console.log(selectedTask);
-            sessionStorage.setItem("selectedTask", selectedTask);        
-            
+            sessionStorage.setItem("selectedTask", selectedTask);       
+                        
             let editName = jsData[selectedTask].objTaskName;
             let editDescription = jsData[selectedTask].objTaskDescription;
             let editPriority = jsData[selectedTask].objTaskPriority;
