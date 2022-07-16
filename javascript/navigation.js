@@ -6,6 +6,9 @@ const todaysTasks = document.getElementsByClassName("displayTodaysTasks");
 const allTasks = document.getElementsByClassName("displayAllTasks");
 const createTask = document.getElementsByClassName("createTask");
 
+const formSubmitButton = document.getElementsByClassName("formButtonSubmit");
+const formEditButton = document.getElementsByClassName("formButtonEdit");
+
 topButton.addEventListener('click', (e) => {
     if (topButton.className == "btnToday" && bottomButton.className == "btnCreateBottom") {
         topButton.className = "btnCreateTop";
@@ -26,17 +29,19 @@ topButton.addEventListener('click', (e) => {
         topButton.innerHTML += "Today's Tasks";
 
         changeDisplay(todaysTasks, 'none');
-        changeDisplay(allTasks, 'none');
+        changeDisplay(allTasks, 'none');  
+        changeDisplay(formEditButton, 'none'); 
+        changeDisplay(formSubmitButton, 'block');     
         changeDisplay(createTask, 'block');
 
         document.getElementById("formHeader").innerHTML = "Create New Task";
-        changeSubmitButton();
     }
     else if (topButton.className == "btnToday") {
         topButton.className = "btnCreateTop";
         topButton.innerHTML = "<img src=\"/images/to-do-list-icon-buy-this-icon-for--0-48-1.png\" alt=\"Create Task Image Not Found\" class=\"btnImage\"><br>";
         topButton.innerHTML += "Create New Task";
 
+        formEditButton.style.display = 'none';
         changeDisplay(createTask, 'none');
         changeDisplay(allTasks, 'none');
         changeDisplay(todaysTasks, 'block');
@@ -67,15 +72,16 @@ bottomButton.addEventListener('click', (e) => {
 
         changeDisplay(allTasks, 'none');
         changeDisplay(todaysTasks, 'none');
+        changeDisplay(formEditButton, 'none'); 
+        changeDisplay(formSubmitButton, 'block'); 
         changeDisplay(createTask, 'block');
         
         document.getElementById("formHeader").innerHTML = "Create New Task";
-        changeSubmitButton();
     }
     else {
         console.log("ERROR. Something Went Wrong With The Bottom Button");
     }
-});
+})
 
 function changeDisplay(tab, display) {
     let i;
@@ -84,16 +90,6 @@ function changeDisplay(tab, display) {
     for(i = 0; i < tabLength; i++) {
         tab[i].style["display"] = display;
     }
-};
+}
 
-function changeSubmitButton() {
-    const submitButton = document.getElementById("btnFormSubmit");
-    const editButton = document.getElementById("btnEditFormSubmit");
 
-    if (submitButton == null) {
-        editButton.id = "btnFormSubmit";
-    }
-    else {
-        console.log("The Submit Button is Correct");
-    }
-};
