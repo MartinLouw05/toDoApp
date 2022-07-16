@@ -213,22 +213,215 @@ footer {
     transition: 1s;
 }
 
-@media only screen and (max-width: 600px) { 
+@media only screen and (max-width: 600px) {    
+    form input, textarea, select {
+        width: 300px;
+        margin-bottom: 10px;
+    }
+    
+    .formButtonSubmit, .formButtonClear, .formButtonEdit {
+        width: 25%;
+        height: 10%;
+        margin-right: 10px;
+    }
+    
+    .formButtonSubmit {
+        background-color: greenyellow;
+        color: black;
+        margin-left: 22.5%;
+        margin-bottom: -30px;
+        display: block;
+    }
+    
+    .formButtonEdit {
+        background-color: greenyellow;
+        color: black;
+        margin-left: 22.5%;
+        margin-bottom: -30px;
+        display: none;    
+    }
+    
+    .formButtonClear {
+        background-color: #4717f6;
+        margin-right: -30%;    
+    }
+    
+    button {
+        background-color: #bb2601;
+        color: white;
+        border-radius: 5px;
+        width: 49%;
+        height: 100px;
+        margin-left: -5px;
+    }
 
+    .btnView {
+        margin-top: 10px;
+    }
+
+    .btnImage {
+        width: 80%;
+        height: 80%;
+    }
+
+    .btnCreateTop {
+        display: block;
+        text-transform: uppercase;
+        font-size: x-large;
+    }
+
+    .btnCreateBottom {
+        display: block;
+        margin-top: 10px;
+        text-transform: uppercase;
+        font-size: x-large;
+        margin-right: -50px;
+    }
+
+    .btnViewTasks {    
+        display: block;
+        margin-top: 10px;
+        text-transform: uppercase;
+        font-size: x-large;
+    }
+
+    .btnToday {
+        display: block;
+        text-transform: uppercase;
+        font-size: x-large;
+        margin-bottom: -50px;
+    }
+
+    .listEditButton, .listDeleteButton {
+        width: 40%;
+        height: 33.3px;
+        margin-right: 10px;
+        font-size: xx-small;
+    }
 }
 
 @media only screen and (min-width: 600px) { 
+    form input, textarea, select {
+        width: 300px;
+        margin-bottom: 10px;
+    }
 
+    .formButtonSubmit, .formButtonClear, .formButtonEdit {
+        width: 25%;
+        height: 10%;
+        margin-right: 10px;
+    }
+    
+    .formButtonSubmit {
+        background-color: greenyellow;
+        color: black;
+        margin-left: 22.5%;
+        margin-bottom: -30px;
+        display: block;
+    }
+    
+    .formButtonEdit {
+        background-color: greenyellow;
+        color: black;
+        margin-left: 22.5%;
+        margin-bottom: -30px;
+        display: none;    
+    }
+    
+    .formButtonClear {
+        background-color: #4717f6;
+        margin-right: -30%;    
+    }
+
+    .listEditButton, .listDeleteButton {
+        width: 40%;
+        height: 33.3px;
+        margin-right: 10px;
+        font-size: xx-small;
+    }
 }
 
 @media only screen and (min-width: 768px) { 
-
+    
+    form input, textarea, select {
+        width: 300px;
+        margin-bottom: 10px;
+    }
+    
+    .formButtonSubmit, .formButtonClear, .formButtonEdit {
+        width: 25%;
+        height: 10%;
+        margin-right: 10px;
+    }
+    
+    .formButtonSubmit {
+        background-color: greenyellow;
+        color: black;
+        margin-left: 22.5%;
+        margin-bottom: -30px;
+        display: block;
+    }
+    
+    .formButtonEdit {
+        background-color: greenyellow;
+        color: black;
+        margin-left: 22.5%;
+        margin-bottom: -30px;
+        display: none;    
+    }
+    
+    .formButtonClear {
+        background-color: #4717f6;
+        margin-right: -30%;    
+    }
 }
 
 @media only screen and (min-width: 992px) { 
 
+    form input, textarea, select {
+        width: 425px;
+        margin-bottom: 10px;
+    }
+
+    .formButtonSubmit, .formButtonClear, .formButtonEdit {
+        width: 20%;
+        height: 10%;
+        margin-right: 10px;
+    }
+    
+    .formButtonSubmit {
+        background-color: greenyellow;
+        color: black;
+        margin-left: 27.5%;
+        margin-bottom: -30px;
+        display: block;
+    }
+    
+    .formButtonEdit {
+        background-color: greenyellow;
+        color: black;
+        margin-left: 27.5%;
+        margin-bottom: -30px;
+        display: none;    
+    }
+    
+    .formButtonClear {
+        background-color: #4717f6;
+        margin-right: -25%;    
+    }
 }
 
 @media only screen and (min-width: 1200px) { 
 
+    form input, textarea, select {
+        width: 425px;
+        margin-bottom: 10px;
+    }
+
+    .listEditButton, .listDeleteButton {
+        width: 40%;
+        height: 33.3px;
+        margin-right: 10px;
+        font-size: xx-small;
+    }
 }
