@@ -59,8 +59,7 @@ class Tasks {
     createTask(newTask) {
         console.log("You are now creating a Task");
         this._toDoList.push(newTask);       
-        saveLocalStorage(this.toDoList);
-        completeTaskCreation();
+        saveLocalStorage(this.toDoList);        
 
         this._toDoList = [];
     }
@@ -80,14 +79,24 @@ sumbitTask.addEventListener('click', (e) => {
         let taskPriority = taskPriorityInput.value;
         let taskDate = taskDateInput.value;
         let taskTime = taskTimeInput.value;
+        let taskStatus = "incomplete";
+
+        if (taskName !== null || taskDescription !== null || taskPriority !== null || taskDate !== null || taskTime !== null) {
+            let taskObj = { objTaskName : taskName, objTaskDescription : taskDescription, objTaskPriority : taskPriority, objTaskDate : taskDate, objTaskTime : taskTime, objTaskStatus : taskStatus };
     
-        let taskObj = { objTaskName : taskName, objTaskDescription : taskDescription, objTaskPriority : taskPriority, objTaskDate : taskDate, objTaskTime : taskTime };
-    
-        addTask.createTask(taskObj);
-        console.log("Task Data Submitted");  
+            addTask.createTask(taskObj);
+            console.log(taskObj);
+            console.log("Task Data Submitted");
+
+            completeTaskCreation();
+        }
+        else {
+            console.log("Some Values are Missing");
+            alert("Task Creation Failed.  Please Ensure That All Fields Have Been Filled");
+        }   
     }
     else {
-        console.log("You are NOT creating a NEW task");
+        console.log("The Submit Button ID is Incorrect");
     }  
 });
 
@@ -125,44 +134,94 @@ function saveLocalStorage(taskArray) {
     }
 }
 
-//Complete Task
-class Completion extends Tasks {
-    constructor(taskName, taskDescription, taskPriority, taskDate, taskTime, taskStatus) {
-        super(taskName, taskDescription, taskPriority, taskDate, taskTime);
-        this._taskStatus = taskStatus;
-    }
-    get taskStatus() {
-        return this._taskStatus;
-    }
-    set taskStatus(text) {
-        if (isNaN(text)) {
-            this._taskStatus = text;
-        }
-        else {
-            console.log('You must assign a string value to your task status');
-        }
-    }
-
-    changeTaskStatus(taskStatus) {
-        console.log("You are now creating a task status");
-        if (taskStatus == "completed") {
-            taskStatus = "uncompleted";
-            this._toDoList.push(taskStatus);
-        }
-    }
-}
-
 //Change Task Status
 function changeStatus() {
     let selectedEntry = document.getElementsByClassName("allTasksEntries");
     let length = selectedEntry.length;
 
+    let data = localStorage.getItem("tasksData");
+    let jsData = JSON.parse(data);
+
     for (i = 0; i < length; i++) {
-        selectedEntry[i].addEventListener('dblclick', (e) => {     
-            let select = e.path[1].id;
-            document.getElementById(select).style.textDecoration = "line-through";
+        selectedEntry[i].addEventListener('dblclick', (e) => {  
+            console.log("Attempting to Change a Task's Status");
+            
+            let selectedName = e.path[1].childNodes[0].innerHTML;
+            let selectedDescription = e.path[1].childNodes[1].innerHTML;
+            let selectedPriority = e.path[1].childNodes[2].innerHTML;
+            let selectedDate = e.path[1].childNodes[3].innerHTML;
+            let selectedTime = e.path[1].childNodes[4].innerHTML;
+            
+            let selectedObj = { objTaskName : selectedName, objTaskDescription : selectedDescription, objTaskPriority : selectedPriority, objTaskDate : selectedDate, objTaskTime : selectedTime };
+            let stringObj = JSON.stringify(selectedObj);
+            let length = jsData.length;
+            console.log(stringObj);
+
+            for (i = 0; i < length; i++) {
+                let jsName = jsData[i].objTaskName;
+                let jsDescription = jsData[i].objTaskDescription;
+                let jsPriority = jsData[i].objTaskPriority;
+                let jsDate = jsData[i].objTaskDate;
+                let jsTime = jsData[i].objTaskTime;
+                let jsStatus = jsData[i].objTaskStatus;
+                
+                let jsObject = { objTaskName : jsName, objTaskDescription : jsDescription, objTaskPriority : jsPriority, objTaskDate : jsDate, objTaskTime : jsTime };
+
+                if (JSON.stringify(jsObject) == stringObj) {
+                    console.log("This entry matches the selected entry");
+                    selectedTask = i;
+                    sessionStorage.setItem("selectedTask", selectedTask);
+
+                    let select = e.path[1].id;
+                    sessionStorage.setItem("selectedLineItem", select);                    
+
+                    updateStatus();
+                }
+                else {
+                    console.log("Not This Entry");
+                }
+            }                     
         })
     }
+}
+
+function updateStatus() {
+    let storageData = localStorage.getItem("tasksData");
+    let jsData = JSON.parse(storageData);
+
+    let selectedTask = sessionStorage.getItem("selectedTask");
+    sessionStorage.removeItem("selectedTask");
+    let select = sessionStorage.getItem("selectedLineItem");
+
+    let taskName = jsData[selectedTask].objTaskName;
+    let taskDescription = jsData[selectedTask].objTaskDescription;
+    let taskPriority = jsData[selectedTask].objTaskPriority;
+    let taskDate = jsData[selectedTask].objTaskDate;
+    let taskTime = jsData[selectedTask].objTaskTime;
+    let taskStatus = jsData[selectedTask].objTaskStatus;
+
+    localStorage.removeItem("tasksData");
+    jsData.splice(selectedTask, 1);
+
+    if (taskStatus == "incomplete") {
+        taskStatus = "complete";
+        console.log("this task is now marked as complete");
+        document.getElementById(select).style.textDecoration = "line-through";
+    }
+    else if (taskStatus == "complete") {
+        taskStatus = "incomplete";
+        console.log("this task is now marked as incomplete");
+        document.getElementById(select).style.textDecoration = "none";
+    }
+    else {
+        console.log("This Task Does Not Have a Status");
+    }
+
+    let updateObj = { objTaskName : taskName, objTaskDescription : taskDescription, objTaskPriority : taskPriority, objTaskDate : taskDate, objTaskTime : taskTime, objTaskStatus : taskStatus };
+
+    jsData.push(updateObj);
+    let data = JSON.stringify(jsData);
+    localStorage.setItem("tasksData", data);
 }
 
 //HTML Load
@@ -221,10 +280,9 @@ function createTodaysList(dataArray) {
                 entriesArray.push(dataArray[i].objTaskPriority);
                 entriesArray.push(dataArray[i].objTaskDate);
                 entriesArray.push(dataArray[i].objTaskTime);
-                
-                let entriesArrayLength = entriesArray.length;
-                
-                for (x = 0; x < entriesArrayLength; x++) {
+                entriesArray.push(dataArray[i].objTaskStatus);
+                                
+                for (x = 0; x < 5; x++) {
                     const listData = document.createElement('span');
                     let listEntry = document.createTextNode(entriesArray[x]);
                     listData.appendChild(listEntry);
@@ -254,6 +312,32 @@ function createTodaysList(dataArray) {
 
                 const todaysTasksList = document.getElementById("todaysTasksList");       
                 todaysTasksList.append(newListEntry);
+
+                //Check Entry Status
+                let status = dataArray[i].objTaskStatus;
+                
+                if (status == "complete") {
+                    document.getElementById(i).style.textDecoration = "line-through";
+                }
+                else {
+                    console.log("Task " + i + " Has Not Been Completed");
+                }
+
+                //Check Entry Priority
+                let priority = dataArray[i].objTaskPriority;
+
+                if (priority == "Low") {
+                    document.getElementById(i).style.backgroundColor = "lightgreen";
+                }
+                if (priority == "Medium") {
+                    document.getElementById(i).style.backgroundColor = "lightsalmon";
+                }
+                if (priority == "High") {
+                    document.getElementById(i).style.backgroundColor = "lightcoral";
+                }
+                else {
+                    console.log("This Task Has No Priority");
+                }
             }
             else {
                 console.log("This task is NOT scheduled for Today");
@@ -303,10 +387,9 @@ function createAllTasksList(dataArray) {
             entriesArray.push(dataArray[i].objTaskPriority);
             entriesArray.push(dataArray[i].objTaskDate);
             entriesArray.push(dataArray[i].objTaskTime);
+            entriesArray.push(dataArray[i].objTaskStatus);
 
-            let entriesArrayLength = entriesArray.length;
-
-            for (x = 0; x < entriesArrayLength; x++) {
+            for (x = 0; x < 5; x++) {
                 const listData = document.createElement('span');
                 let listEntry = document.createTextNode(entriesArray[x]);
                 listData.appendChild(listEntry);
@@ -335,7 +418,33 @@ function createAllTasksList(dataArray) {
             newListEntry.append(spanBtn);
 
             const allTasksList = document.getElementById("allTasksList");       
-            allTasksList.append(newListEntry);      
+            allTasksList.append(newListEntry);    
+
+            //Check Entry Status
+            let status = dataArray[i].objTaskStatus;
+            
+            if (status == "complete") {
+                document.getElementById(i).style.textDecoration = "line-through";
+            }
+            else {
+                console.log("Task " + i + " Has Not Been Completed");
+            }
+
+            //Check Entry Priority
+            let priority = dataArray[i].objTaskPriority;
+
+            if (priority == "Low") {
+                document.getElementById(i).style.backgroundColor = "lightgreen";
+            }
+            if (priority == "Medium") {
+                document.getElementById(i).style.backgroundColor = "lightsalmon";
+            }
+            if (priority == "High") {
+                document.getElementById(i).style.backgroundColor = "lightcoral";
+            }
+            else {
+                console.log("This Task Has No Priority");
+            }
         }
 
         changeStatus();
@@ -375,7 +484,16 @@ function allTasksListManipulation() {
             console.log(stringObj);
 
             for (i = 0; i < length; i++) {
-                if (JSON.stringify(jsData[i]) == stringObj) {
+                let jsName = jsData[i].objTaskName;
+                let jsDescription = jsData[i].objTaskDescription;
+                let jsPriority = jsData[i].objTaskPriority;
+                let jsDate = jsData[i].objTaskDate;
+                let jsTime = jsData[i].objTaskTime;
+                let jsStatus = jsData[i].objTaskStatus;
+                
+                let jsObject = { objTaskName : jsName, objTaskDescription : jsDescription, objTaskPriority : jsPriority, objTaskDate : jsDate, objTaskTime : jsTime };
+
+                if (JSON.stringify(jsObject) == stringObj) {
                     console.log(i)
                     console.log(jsData[i]);
                     selectedTask = i;
@@ -394,6 +512,8 @@ function allTasksListManipulation() {
             let editPriority = jsData[selectedTask].objTaskPriority;
             let editDate = jsData[selectedTask].objTaskDate;
             let editTime = jsData[selectedTask].objTaskTime;
+            let editStatus = jsData[selectedTask].objTaskStatus;
+            sessionStorage.setItem("editStatus", editStatus);
 
             let taskNameInput = document.getElementById("taskName");
             let taskDescriptionInput = document.getElementById("taskDescription");
@@ -435,30 +555,48 @@ function allTasksListManipulation() {
             console.log(stringObj);
 
             for (i = 0; i < length; i++) {
-                if (JSON.stringify(jsData[i]) == stringObj) {
+                let jsName = jsData[i].objTaskName;
+                let jsDescription = jsData[i].objTaskDescription;
+                let jsPriority = jsData[i].objTaskPriority;
+                let jsDate = jsData[i].objTaskDate;
+                let jsTime = jsData[i].objTaskTime;
+                let jsStatus = jsData[i].objTaskStatus;
+                
+                let jsObject = { objTaskName : jsName, objTaskDescription : jsDescription, objTaskPriority : jsPriority, objTaskDate : jsDate, objTaskTime : jsTime };
+
+                if (JSON.stringify(jsObject) == stringObj) {
                     console.log(i)
                     console.log(jsData[i]);
                     select = i;
+                    sessionStorage.setItem("deleteTask", select);
                 }
                 else {
                     console.log("Not This Entry");
                 }
             }
 
-            //let select = e.path[2].id;
-            document.getElementById(select).remove();
+            let selectDelete = sessionStorage.getItem("deleteTask");
 
-            let savedData = localStorage.getItem("tasksData");
-            localStorage.removeItem("tasksData");
-            let jsonSavedData = JSON.parse(savedData);
-            
-            jsonSavedData.splice(select, 1);
-            alert("Task Successfully Deleted");
+            if (selectDelete !== null) {
+                //let select = e.path[2].id;
+                console.log(select)
+                document.getElementById(select).remove();
 
-            let newData = JSON.stringify(jsonSavedData);
-            localStorage.setItem("tasksData", newData);
-            console.log("local storage updated");            
-        });
+                let savedData = localStorage.getItem("tasksData");
+                localStorage.removeItem("tasksData");
+                let jsonSavedData = JSON.parse(savedData);
+                
+                jsonSavedData.splice(select, 1);
+                alert("Task Successfully Deleted");
+
+                let newData = JSON.stringify(jsonSavedData);
+                localStorage.setItem("tasksData", newData);
+                console.log("local storage updated");   
+            }
+            else {
+                console.log("Something Went Wrong While Trying to Delete the Task");
+            }         
+        })
     }
 }
 
@@ -479,8 +617,9 @@ editSubmitButton.addEventListener('click', (e) => {
     let taskPriority = taskPriorityInput.value;
     let taskDate = taskDateInput.value;
     let taskTime = taskTimeInput.value;
+    let taskStatus = sessionStorage.getItem("editStatus");
 
-    let taskObj = { objTaskName : taskName, objTaskDescription : taskDescription, objTaskPriority : taskPriority, objTaskDate : taskDate, objTaskTime : taskTime };
+    let taskObj = { objTaskName : taskName, objTaskDescription : taskDescription, objTaskPriority : taskPriority, objTaskDate : taskDate, objTaskTime : taskTime, objTaskStatus : taskStatus };
 
     jsData.push(taskObj);
     let data = JSON.stringify(jsData);
@@ -517,6 +656,8 @@ function taskManipulation() {
             let editPriority = jsData[selectedTask].objTaskPriority;
             let editDate = jsData[selectedTask].objTaskDate;
             let editTime = jsData[selectedTask].objTaskTime;
+            let editStatus = jsData[selectedTask].objTaskStatus;
+            sessionStorage.setItem("editStatus", editStatus);
 
             let taskNameInput = document.getElementById("taskName");
             let taskDescriptionInput = document.getElementById("taskDescription");
