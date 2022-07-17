@@ -81,7 +81,7 @@ sumbitTask.addEventListener('click', (e) => {
         let taskTime = taskTimeInput.value;
         let taskStatus = "incomplete";
 
-        if (taskName !== null || taskDescription !== null || taskPriority !== null || taskDate !== null || taskTime !== null) {
+        //if (taskNameInput.value !== " ") {
             let taskObj = { objTaskName : taskName, objTaskDescription : taskDescription, objTaskPriority : taskPriority, objTaskDate : taskDate, objTaskTime : taskTime, objTaskStatus : taskStatus };
     
             addTask.createTask(taskObj);
@@ -89,11 +89,11 @@ sumbitTask.addEventListener('click', (e) => {
             console.log("Task Data Submitted");
 
             completeTaskCreation();
-        }
-        else {
-            console.log("Some Values are Missing");
-            alert("Task Creation Failed.  Please Ensure That All Fields Have Been Filled");
-        }   
+        //}
+        //else {
+            //console.log("Some Values are Missing");
+            //alert("Task Creation Failed.  Please Ensure That All Fields Have Been Filled");
+        //}   
     }
     else {
         console.log("The Submit Button ID is Incorrect");
@@ -578,7 +578,7 @@ function allTasksListManipulation() {
             let selectDelete = sessionStorage.getItem("deleteTask");
 
             if (selectDelete !== null) {
-                //let select = e.path[2].id;
+                let select = e.path[2].id;
                 console.log(select)
                 document.getElementById(select).remove();
 
@@ -586,7 +586,7 @@ function allTasksListManipulation() {
                 localStorage.removeItem("tasksData");
                 let jsonSavedData = JSON.parse(savedData);
                 
-                jsonSavedData.splice(select, 1);
+                jsonSavedData.splice(selectDelete, 1);
                 alert("Task Successfully Deleted");
 
                 let newData = JSON.stringify(jsonSavedData);
@@ -686,7 +686,7 @@ function taskManipulation() {
     for (i = 0; i < deleteBtnCount; i++) {
         deleteTask[i].addEventListener('click', (e) => {
             console.log("Attempting to DELETE a Task");
-            let select = e.path[2].id;
+            let select = e.path[2].id;  
             document.getElementById(select).remove();
 
             let savedData = localStorage.getItem("tasksData");
