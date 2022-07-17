@@ -34,6 +34,12 @@ topButton.addEventListener('click', (e) => {
         changeDisplay(formSubmitButton, 'block');     
         changeDisplay(createTask, 'block');
 
+        taskNameInput.value = '';
+        taskDescriptionInput.value = '';
+        taskPriorityInput.value = '';
+        taskDateInput.value = '';
+        taskTimeInput.value = '';
+
         document.getElementById("formHeader").innerHTML = "Create New Task";
     }
     else if (topButton.className == "btnToday") {
@@ -74,6 +80,12 @@ bottomButton.addEventListener('click', (e) => {
         changeDisplay(formEditButton, 'none'); 
         changeDisplay(formSubmitButton, 'block'); 
         changeDisplay(createTask, 'block');
+
+        taskNameInput.value = '';
+        taskDescriptionInput.value = '';
+        taskPriorityInput.value = '';
+        taskDateInput.value = '';
+        taskTimeInput.value = '';
         
         document.getElementById("formHeader").innerHTML = "Create New Task";
     }

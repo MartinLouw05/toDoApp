@@ -31,12 +31,13 @@ taskTimeInput.addEventListener('focus', (e) => {
 const clearForm = document.getElementById("btnFormClear");
 
 clearForm.addEventListener('click', (e) => {
+    e.preventDefault();
     taskNameInput.value = '';
     taskDescriptionInput.value = '';
     taskPriorityInput.value = '';
     taskDateInput.value = '';
     taskTimeInput.value = '';
-});
+})
 
 //Tasks Class
 class Tasks {
@@ -72,8 +73,7 @@ const sumbitTask = document.getElementById("btnFormSubmit");
 let data = addTask.toDoList;
 
 sumbitTask.addEventListener('click', (e) => {
-    if (sumbitTask.id == "btnFormSubmit") {
-        e.preventDefault();
+    if (sumbitTask.id == "btnFormSubmit") {        
         let taskName = taskNameInput.value;
         let taskDescription = taskDescriptionInput.value;
         let taskPriority = taskPriorityInput.value;
@@ -81,19 +81,20 @@ sumbitTask.addEventListener('click', (e) => {
         let taskTime = taskTimeInput.value;
         let taskStatus = "incomplete";
 
-        //if (taskNameInput.value !== " ") {
+        if (taskName !== '' && taskDescription !== '' && taskPriority !== '' && taskDate !== '' && taskTime !== '') {
             let taskObj = { objTaskName : taskName, objTaskDescription : taskDescription, objTaskPriority : taskPriority, objTaskDate : taskDate, objTaskTime : taskTime, objTaskStatus : taskStatus };
     
             addTask.createTask(taskObj);
             console.log(taskObj);
             console.log("Task Data Submitted");
 
+            e.preventDefault();
             completeTaskCreation();
-        //}
-        //else {
-            //console.log("Some Values are Missing");
-            //alert("Task Creation Failed.  Please Ensure That All Fields Have Been Filled");
-        //}   
+        }
+        else {
+            console.log("Some Values are Missing");
+            alert("Task Creation Failed.  Please Ensure That All Fields Have Been Filled");
+        }   
     }
     else {
         console.log("The Submit Button ID is Incorrect");
