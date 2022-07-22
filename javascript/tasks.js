@@ -615,12 +615,7 @@ editSubmitButton = document.getElementById("btnEditSubmit");
 editSubmitButton.addEventListener('click', (e) => {
     let storageData = localStorage.getItem("tasksData");
     let jsData = JSON.parse(storageData);
-    let selectedTask = sessionStorage.getItem("selectedTask");
-    sessionStorage.removeItem("selectedTask");
-
-    e.preventDefault();
-    localStorage.removeItem("tasksData");
-    jsData.splice(selectedTask, 1);
+    let selectedTask = sessionStorage.getItem("selectedTask");    
 
     let taskName = taskNameInput.value;
     let taskDescription = taskDescriptionInput.value;
@@ -629,18 +624,29 @@ editSubmitButton.addEventListener('click', (e) => {
     let taskTime = taskTimeInput.value;
     let taskStatus = sessionStorage.getItem("editStatus");
 
-    let taskObj = { objTaskName : taskName, objTaskDescription : taskDescription, objTaskPriority : taskPriority, objTaskDate : taskDate, objTaskTime : taskTime, objTaskStatus : taskStatus };
+    if (taskName !== '' && taskDescription !== '' && taskPriority !== '' && taskDate !== '' && taskTime !== '') {
+        sessionStorage.removeItem("selectedTask");
+        localStorage.removeItem("tasksData");
+        jsData.splice(selectedTask, 1);
 
-    jsData.push(taskObj);
-    let data = JSON.stringify(jsData);
-    console.log(data);
+        let taskObj = { objTaskName : taskName, objTaskDescription : taskDescription, objTaskPriority : taskPriority, objTaskDate : taskDate, objTaskTime : taskTime, objTaskStatus : taskStatus };
 
-    localStorage.setItem("tasksData", data);              
+        jsData.push(taskObj);
+        let data = JSON.stringify(jsData);
+        console.log(data);
 
-    alert("Task Has Been Successfully Edited");
+        localStorage.setItem("tasksData", data);              
 
-    const allTasksButton = document.getElementById("bottomButton");
-    allTasksButton.click();
+        e.preventDefault();
+        alert("Task Has Been Successfully Edited");
+
+        const allTasksButton = document.getElementById("bottomButton");
+        allTasksButton.click();
+    }
+    else {
+        console.log("Some Values are Missing");
+        alert("Task Updating Failed.  Please Ensure That All Fields Have Been Filled");
+    }  
 })
 
 function taskManipulation() {
