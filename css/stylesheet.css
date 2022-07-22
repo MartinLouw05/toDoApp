@@ -64,6 +64,8 @@ ul {
     height: 33.3px;
     margin-right: 3px;
     font-size: xx-small;
+    background-color: transparent;
+    border: none;
 }
 
 .displayTodaysTasks {
@@ -422,6 +424,7 @@ footer {
         width: 40%;
         height: 33.3px;
         margin-right: 10px;
-        font-size: xx-small;
+        font-size: large;
+        color: white;
     }
 }

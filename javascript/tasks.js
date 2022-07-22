@@ -231,7 +231,8 @@ window.onload = function() {
         let list = localStorage.getItem("tasksData");
         let jsList = JSON.parse(list);
 
-        createTodaysList(jsList);
+        let jsSort = jsList.sort(sortByTime);
+        createTodaysList(jsSort);
     }
     else {
         console.log("Something Went Wrong While Attempting to Generate Today's Task List")
@@ -248,7 +249,8 @@ todaysTasksList.addEventListener('click', (e) => {
         let list = localStorage.getItem("tasksData");
         let jsList = JSON.parse(list);
 
-        createTodaysList(jsList);
+        let jsSort = jsList.sort(sortByTime);
+        createTodaysList(jsSort);
     }
     else {
         console.log("Something Went Wrong While Attempting to Generate Today's Task List")
@@ -300,7 +302,7 @@ function createTodaysList(dataArray) {
                 editButton.className = "listEditButton";
                 deleteButton.className = "listDeleteButton";
 
-                let editBtn = document.createTextNode("Edit");
+                let editBtn = document.createTextNode("&#128397");
                 let deleteBtn = document.createTextNode("Del");
 
                 editButton.appendChild(editBtn);
@@ -313,6 +315,9 @@ function createTodaysList(dataArray) {
 
                 const todaysTasksList = document.getElementById("todaysTasksList");       
                 todaysTasksList.append(newListEntry);
+                
+                editButton.innerHTML = "&#9998";
+                deleteButton.innerHTML = "&#128465";
 
                 //Check Entry Status
                 let status = dataArray[i].objTaskStatus;
@@ -347,6 +352,7 @@ function createTodaysList(dataArray) {
 
         changeStatus();
         taskManipulation();
+        
     }
     else {
         console.log("No Tasks Data Found");
@@ -408,7 +414,7 @@ function createAllTasksList(dataArray) {
             deleteButton.className = "listDeleteButton";
 
             let editBtn = document.createTextNode("Edit");
-            let deleteBtn = document.createTextNode("Del");
+            let deleteBtn = document.createTextNode("Del");            
 
             editButton.appendChild(editBtn);
             deleteButton.appendChild(deleteBtn);
@@ -420,6 +426,9 @@ function createAllTasksList(dataArray) {
 
             const allTasksList = document.getElementById("allTasksList");       
             allTasksList.append(newListEntry);    
+
+            editButton.innerHTML = "&#9998";
+            deleteButton.innerHTML = "&#128465";
 
             //Check Entry Status
             let status = dataArray[i].objTaskStatus;
@@ -648,10 +657,41 @@ function taskManipulation() {
             const taskEdit = document.getElementById("topButton");
             taskEdit.click();
             
-            selectedTask = e.path[2].id;   
-            console.log(selectedTask);
-            sessionStorage.setItem("selectedTask", selectedTask);        
+            //Return Correct Task
+            let selectedName = e.path[2].childNodes[0].innerHTML;
+            let selectedDescription = e.path[2].childNodes[1].innerHTML;
+            let selectedPriority = e.path[2].childNodes[2].innerHTML;
+            let selectedDate = e.path[2].childNodes[3].innerHTML;
+            let selectedTime = e.path[2].childNodes[4].innerHTML;
+            let selectedObj = { objTaskName : selectedName, objTaskDescription : selectedDescription, objTaskPriority : selectedPriority, objTaskDate : selectedDate, objTaskTime : selectedTime };
+            let stringObj = JSON.stringify(selectedObj);
+            let length = jsData.length;
+            console.log(stringObj);
+
+            for (i = 0; i < length; i++) {
+                let jsName = jsData[i].objTaskName;
+                let jsDescription = jsData[i].objTaskDescription;
+                let jsPriority = jsData[i].objTaskPriority;
+                let jsDate = jsData[i].objTaskDate;
+                let jsTime = jsData[i].objTaskTime;
+                let jsStatus = jsData[i].objTaskStatus;
+                
+                let jsObject = { objTaskName : jsName, objTaskDescription : jsDescription, objTaskPriority : jsPriority, objTaskDate : jsDate, objTaskTime : jsTime };
+
+                if (JSON.stringify(jsObject) == stringObj) {
+                    console.log(i)
+                    console.log(jsData[i]);
+                    selectedTask = i;
+                }
+                else {
+                    console.log("Not This Entry");
+                }
+            }
             
+            //selectedTask = e.path[2].id;   
+            console.log(selectedTask);
+            sessionStorage.setItem("selectedTask", selectedTask);       
+                        
             let editName = jsData[selectedTask].objTaskName;
             let editDescription = jsData[selectedTask].objTaskDescription;
             let editPriority = jsData[selectedTask].objTaskPriority;
@@ -687,19 +727,60 @@ function taskManipulation() {
     for (i = 0; i < deleteBtnCount; i++) {
         deleteTask[i].addEventListener('click', (e) => {
             console.log("Attempting to DELETE a Task");
-            let select = e.path[2].id;  
-            document.getElementById(select).remove();
-
-            let savedData = localStorage.getItem("tasksData");
-            localStorage.removeItem("tasksData");
-            let jsonSavedData = JSON.parse(savedData);
             
-            jsonSavedData.splice(select, 1);
-            alert("Task Successfully Deleted");
-
-            let newData = JSON.stringify(jsonSavedData);
-            localStorage.setItem("tasksData", newData);
-            console.log("local storage updated");            
+                //Return Correct Task
+                let selectedName = e.path[2].childNodes[0].innerHTML;
+                let selectedDescription = e.path[2].childNodes[1].innerHTML;
+                let selectedPriority = e.path[2].childNodes[2].innerHTML;
+                let selectedDate = e.path[2].childNodes[3].innerHTML;
+                let selectedTime = e.path[2].childNodes[4].innerHTML;
+                let selectedObj = { objTaskName : selectedName, objTaskDescription : selectedDescription, objTaskPriority : selectedPriority, objTaskDate : selectedDate, objTaskTime : selectedTime };
+                let stringObj = JSON.stringify(selectedObj);
+                let length = jsData.length;
+                console.log(stringObj);
+    
+                for (i = 0; i < length; i++) {
+                    let jsName = jsData[i].objTaskName;
+                    let jsDescription = jsData[i].objTaskDescription;
+                    let jsPriority = jsData[i].objTaskPriority;
+                    let jsDate = jsData[i].objTaskDate;
+                    let jsTime = jsData[i].objTaskTime;
+                    let jsStatus = jsData[i].objTaskStatus;
+                    
+                    let jsObject = { objTaskName : jsName, objTaskDescription : jsDescription, objTaskPriority : jsPriority, objTaskDate : jsDate, objTaskTime : jsTime };
+    
+                    if (JSON.stringify(jsObject) == stringObj) {
+                        console.log(i)
+                        console.log(jsData[i]);
+                        select = i;
+                        sessionStorage.setItem("deleteTask", select);
+                    }
+                    else {
+                        console.log("Not This Entry");
+                    }
+                }
+    
+                let selectDelete = sessionStorage.getItem("deleteTask");
+    
+                if (selectDelete !== null) {
+                    let select = e.path[2].id;
+                    console.log(select)
+                    document.getElementById(select).remove();
+    
+                    let savedData = localStorage.getItem("tasksData");
+                    localStorage.removeItem("tasksData");
+                    let jsonSavedData = JSON.parse(savedData);
+                    
+                    jsonSavedData.splice(selectDelete, 1);
+                    alert("Task Successfully Deleted");
+    
+                    let newData = JSON.stringify(jsonSavedData);
+                    localStorage.setItem("tasksData", newData);
+                    console.log("local storage updated");   
+                }
+                else {
+                    console.log("Something Went Wrong While Trying to Delete the Task");
+                }            
         });
     }
 }
@@ -743,6 +824,7 @@ sortSelection.addEventListener('click', (e) => {
     }
 });
 
+//Sort Functions
 function sortByName(a, b) {
     if (a.objTaskName < b.objTaskName) {
         return -1;
@@ -779,20 +861,14 @@ function sortByDate(a, b) {
     }
 }
 
-/*
-function compare( a, b ) {
-    if ( a.objTaskDate < b.objTaskDate ){
-      return -1;
+function sortByTime(a, b) {
+    if (a.objTaskTime < b.objTaskTime) {
+        return -1;
     }
-    if ( a.objTaskDate > b.objTaskDate ){
-      return 1;
+    else if (a.objTaskTime > b.objTaskTime) {
+        return 1;
     }
-    return 0;
-  }
-  
-  let list = localStorage.getItem("tasksData");
-  let jsList = JSON.parse(list);
-
-  let test = jsList.sort(compare);
-  console.log(test);
-  */
+    else {
+        return 0;
+    }
+}
