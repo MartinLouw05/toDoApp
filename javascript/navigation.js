@@ -12,12 +12,10 @@ const formEditButton = document.getElementsByClassName("formButtonEdit");
 topButton.addEventListener('click', (e) => {
     if (topButton.className == "btnToday" && bottomButton.className == "btnCreateBottom") {
         topButton.className = "btnCreateTop";
-        topButton.innerHTML = "<img src=\"/images/createTask.png\" alt=\"Create Task Image Not Found\" class=\"btnImage\"><br>";
-        topButton.innerHTML += "Create New Task";
+        topButton.innerHTML = "Create New Task";
 
         bottomButton.className = "btnViewTasks";
-        bottomButton.innerHTML = "<img src=\"/images/allTasks.png\" alt=\"View All Tasks Image Not Found\" class=\"btnImage\"><br>";
-        bottomButton.innerHTML += "View All Tasks";
+        bottomButton.innerHTML = "View All Tasks";
 
         changeDisplay(allTasks, 'none');
         changeDisplay(createTask, 'none');
@@ -25,8 +23,7 @@ topButton.addEventListener('click', (e) => {
     }
     else if (topButton.className == "btnCreateTop") {
         topButton.className = "btnToday";
-        topButton.innerHTML = "<img src=\"/images/todayList.png\" alt=\"Today's Tasks Image Not Found\" class=\"btnImage\"><br>";
-        topButton.innerHTML += "Today's Tasks";
+        topButton.innerHTML = "Today's Tasks";
 
         changeDisplay(todaysTasks, 'none');
         changeDisplay(allTasks, 'none');  
@@ -44,8 +41,7 @@ topButton.addEventListener('click', (e) => {
     }
     else if (topButton.className == "btnToday") {
         topButton.className = "btnCreateTop";
-        topButton.innerHTML = "<img src=\"/images/createTask.png\" alt=\"Create Task Image Not Found\" class=\"btnImage\"><br>";
-        topButton.innerHTML += "Create New Task";
+        topButton.innerHTML = "Create New Task";
 
         changeDisplay(createTask, 'none');
         changeDisplay(allTasks, 'none');
@@ -59,12 +55,10 @@ topButton.addEventListener('click', (e) => {
 bottomButton.addEventListener('click', (e) => {
     if (bottomButton.className == "btnViewTasks") {
         bottomButton.className = "btnCreateBottom";
-        bottomButton.innerHTML = "<img src=\"/images/createTask.png\" alt=\"Create Task Image Not Found\" class=\"btnImage\"><br>";
-        bottomButton.innerHTML += "Create New Task";
+        bottomButton.innerHTML = "Create New Task";
 
         topButton.className = "btnToday";
-        topButton.innerHTML = "<img src=\"/images/todayList.png\" alt=\"Today's Tasks Image Not Found\" class=\"btnImage\"><br>";
-        topButton.innerHTML += "Today's Tasks";
+        topButton.innerHTML = "Today's Tasks";
 
         changeDisplay(todaysTasks, 'none');
         changeDisplay(createTask, 'none');
@@ -72,8 +66,7 @@ bottomButton.addEventListener('click', (e) => {
     }
     else if (bottomButton.className == "btnCreateBottom") {
         bottomButton.className = "btnViewTasks";
-        bottomButton.innerHTML = "<img src=\"/images/allTasks.png\" alt=\"View All Tasks Image Not Found\" class=\"btnImage\"><br>";
-        bottomButton.innerHTML += "View All Tasks";
+        bottomButton.innerHTML = "View All Tasks";
 
         changeDisplay(allTasks, 'none');
         changeDisplay(todaysTasks, 'none');

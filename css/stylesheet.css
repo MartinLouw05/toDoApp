@@ -40,9 +40,9 @@ ul {
     margin: 0.5rem 0;
     background-color: #813772;
     color: white;
-    margin-left: -40px;
     margin-right: 5px;
     padding: 5px;
+
 }
 
 .tasksEntries, .allTasksEntries {
@@ -161,35 +161,9 @@ button {
     margin-top: 10px;
 }
 
-.btnImage {
-    width: 80%;
-    height: 80%;
-}
-
-.btnCreateTop {
-    display: block;
-    text-transform: uppercase;
-    font-size: x-large;
-}
-
-.btnCreateBottom {
-    display: block;
-    margin-top: 10px;
-    text-transform: uppercase;
-    font-size: x-large;
-}
-
-.btnViewTasks {    
-    display: block;
-    margin-top: 10px;
-    text-transform: uppercase;
-    font-size: x-large;
-}
-
-.btnToday {
-    display: block;
-    text-transform: uppercase;
-    font-size: x-large;
+#allTasksList, #todaysTasksList {
+    max-height: 760px;
+    overflow: scroll;    
 }
 
 .sortLabel {
@@ -261,44 +235,62 @@ footer {
         margin-top: 10px;
     }
 
-    .btnImage {
-        width: 80%;
-        height: 80%;
+    .listEditButton, .listDeleteButton {
+        width: 40%;
+        height: 33.3px;
+        margin-right: 10px;
+        font-size: xx-small;
     }
 
     .btnCreateTop {
         display: block;
         text-transform: uppercase;
         font-size: x-large;
+        background-image: url(../images/createTask.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
     }
-
+    
     .btnCreateBottom {
         display: block;
         margin-top: 10px;
         text-transform: uppercase;
         font-size: x-large;
-        margin-right: -50px;
+        background-image: url(../images/createTask.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
     }
-
+    
     .btnViewTasks {    
         display: block;
         margin-top: 10px;
+        margin-right: -500px;
         text-transform: uppercase;
         font-size: x-large;
+        background-image: url(../images/allTasks.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
     }
-
+    
     .btnToday {
         display: block;
         text-transform: uppercase;
         font-size: x-large;
-        margin-bottom: -50px;
-    }
-
-    .listEditButton, .listDeleteButton {
-        width: 40%;
-        height: 33.3px;
-        margin-right: 10px;
-        font-size: xx-small;
+        background-image: url(../images/todayList.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
     }
 }
 
@@ -341,6 +333,56 @@ footer {
         margin-right: 10px;
         font-size: xx-small;
     }
+
+    .btnCreateTop {
+        display: block;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/createTask.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
+    }
+    
+    .btnCreateBottom {
+        display: block;
+        margin-top: 10px;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/createTask.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
+    }
+    
+    .btnViewTasks {    
+        display: block;
+        margin-top: 10px;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/allTasks.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
+    }
+    
+    .btnToday {
+        display: block;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/todayList.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
+    }
 }
 
 @media only screen and (min-width: 768px) { 
@@ -375,6 +417,56 @@ footer {
     .formButtonClear {
         background-color: #4717f6;
         margin-right: -30%;    
+    }
+
+    .btnCreateTop {
+        display: block;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/createTask.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
+    }
+    
+    .btnCreateBottom {
+        display: block;
+        margin-top: 10px;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/createTask.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
+    }
+    
+    .btnViewTasks {    
+        display: block;
+        margin-top: 10px;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/allTasks.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
+    }
+    
+    .btnToday {
+        display: block;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/todayList.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
     }
 }
 
@@ -411,6 +503,56 @@ footer {
         background-color: #4717f6;
         margin-right: -25%;    
     }
+
+    .btnCreateTop {
+        display: block;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/createTask.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
+    }
+    
+    .btnCreateBottom {
+        display: block;
+        margin-top: 10px;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/createTask.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
+    }
+    
+    .btnViewTasks {    
+        display: block;
+        margin-top: 10px;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/allTasks.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
+    }
+    
+    .btnToday {
+        display: block;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/todayList.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
+    }
 }
 
 @media only screen and (min-width: 1200px) { 
@@ -426,5 +568,55 @@ footer {
         margin-right: 10px;
         font-size: large;
         color: white;
+    }
+
+    .btnCreateTop {
+        display: block;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/createTask.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
+    }
+    
+    .btnCreateBottom {
+        display: block;
+        margin-top: 10px;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/createTask.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
+    }
+    
+    .btnViewTasks {    
+        display: block;
+        margin-top: 10px;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/allTasks.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
+    }
+    
+    .btnToday {
+        display: block;
+        text-transform: uppercase;
+        font-size: x-large;
+        background-image: url(../images/todayList.png);
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-size: contain;
+        color: yellow;
+        text-shadow: -2px -2px black;
     }
 }
