@@ -163,6 +163,7 @@ button {
 
 #allTasksList, #todaysTasksList {
     max-height: 760px;
+    min-height: 760px;
     overflow: scroll;    
 }
 
@@ -256,7 +257,8 @@ footer {
     
     .btnCreateBottom {
         display: block;
-        margin-top: 10px;
+        float: right;
+        margin-top: -100px;
         text-transform: uppercase;
         font-size: x-large;
         background-image: url(../images/createTask.png);
@@ -269,8 +271,9 @@ footer {
     
     .btnViewTasks {    
         display: block;
-        margin-top: 10px;
-        margin-right: -500px;
+        float: right;
+        margin-top: -100px;
+        margin-right: 0px;
         text-transform: uppercase;
         font-size: x-large;
         background-image: url(../images/allTasks.png);
@@ -333,6 +336,15 @@ footer {
         margin-right: 10px;
         font-size: xx-small;
     }
+    
+    button {
+        background-color: #bb2601;
+        color: white;
+        border-radius: 5px;
+        width: 49%;
+        height: 100px;
+        margin-left: -5px;
+    }
 
     .btnCreateTop {
         display: block;
@@ -348,7 +360,8 @@ footer {
     
     .btnCreateBottom {
         display: block;
-        margin-top: 10px;
+        float: right;
+        margin-top: -100px;
         text-transform: uppercase;
         font-size: x-large;
         background-image: url(../images/createTask.png);
@@ -361,7 +374,8 @@ footer {
     
     .btnViewTasks {    
         display: block;
-        margin-top: 10px;
+        float: right;
+        margin-top: -100px;
         text-transform: uppercase;
         font-size: x-large;
         background-image: url(../images/allTasks.png);
@@ -417,6 +431,15 @@ footer {
     .formButtonClear {
         background-color: #4717f6;
         margin-right: -30%;    
+    }
+
+    button {
+        background-color: #bb2601;
+        color: white;
+        border-radius: 5px;
+        width: 100%;
+        height: 445px;
+        margin-left: -5px;
     }
 
     .btnCreateTop {
@@ -504,6 +527,15 @@ footer {
         margin-right: -25%;    
     }
 
+    button {
+        background-color: #bb2601;
+        color: white;
+        border-radius: 5px;
+        width: 100%;
+        height: 445px;
+        margin-left: -5px;
+    }
+
     .btnCreateTop {
         display: block;
         text-transform: uppercase;
@@ -568,6 +600,15 @@ footer {
         margin-right: 10px;
         font-size: large;
         color: white;
+    }
+
+    button {
+        background-color: #bb2601;
+        color: white;
+        border-radius: 5px;
+        width: 100%;
+        height: 445px;
+        margin-left: -5px;
     }
 
     .btnCreateTop {

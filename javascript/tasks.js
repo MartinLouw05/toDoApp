@@ -878,3 +878,18 @@ function sortByTime(a, b) {
         return 0;
     }
 }
+
+let buttonsColumn = document.getElementById("navButtons");
+let mediaQueryOne = window.matchMedia('(max-width: 768px)');
+let mediaQueryTwo = window.matchMedia('(max-width: 768px)');
+
+function screenTestOne(e) {
+    if (e.matches) {
+        buttonsColumn.className = "col-lg-12";
+    }
+    else {
+        buttonsColumn.className = "col-md-4";
+    }
+}
+
+mediaQueryOne.addEventListener('change', screenTestOne);
