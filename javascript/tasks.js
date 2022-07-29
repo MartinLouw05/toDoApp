@@ -880,8 +880,7 @@ function sortByTime(a, b) {
 }
 
 let buttonsColumn = document.getElementById("navButtons");
-let mediaQueryOne = window.matchMedia('(max-width: 768px)');
-let mediaQueryTwo = window.matchMedia('(max-width: 768px)');
+let mediaQuery = window.matchMedia('(max-width: 768px)');
 
 function screenTestOne(e) {
     if (e.matches) {
@@ -892,4 +891,4 @@ function screenTestOne(e) {
     }
 }
 
-mediaQueryOne.addEventListener('change', screenTestOne);
+mediaQuery.addEventListener('change', screenTestOne);
