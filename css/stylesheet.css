@@ -161,10 +161,16 @@ button {
     margin-top: 10px;
 }
 
-#allTasksList, #todaysTasksList {
+#allTasksList {
     max-height: 760px;
     min-height: 760px;
     overflow: scroll;    
+}
+
+#todaysTasksList {
+    max-height: 793px;
+    min-height: 793px;
+    overflow: scroll;  
 }
 
 .sortLabel {

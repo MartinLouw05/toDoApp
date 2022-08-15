@@ -1,4 +1,4 @@
-
+//Variables
 const topButton = document.getElementById("topButton");
 const bottomButton = document.getElementById("bottomButton");
 
@@ -9,8 +9,10 @@ const createTask = document.getElementsByClassName("createTask");
 const formSubmitButton = document.getElementsByClassName("formButtonSubmit");
 const formEditButton = document.getElementsByClassName("formButtonEdit");
 
+//Event Listeners for the Navigation Buttons
 topButton.addEventListener('click', (e) => {
     if (topButton.className == "btnToday" && bottomButton.className == "btnCreateBottom") {
+        //Display Today's Task List
         topButton.className = "btnCreateTop";
         topButton.innerHTML = "Create New Task";
 
@@ -22,6 +24,7 @@ topButton.addEventListener('click', (e) => {
         changeDisplay(todaysTasks, 'block');
     }
     else if (topButton.className == "btnCreateTop") {
+        //Display Create Task Page
         topButton.className = "btnToday";
         topButton.innerHTML = "Today's Tasks";
 
@@ -40,6 +43,7 @@ topButton.addEventListener('click', (e) => {
         document.getElementById("formHeader").innerHTML = "Create New Task";
     }
     else if (topButton.className == "btnToday") {
+        //Display Today's Task List
         topButton.className = "btnCreateTop";
         topButton.innerHTML = "Create New Task";
 
@@ -48,12 +52,13 @@ topButton.addEventListener('click', (e) => {
         changeDisplay(todaysTasks, 'block');
     }
     else {
-        console.log("ERROR. Something Went Wrong With The Top Button");
+        //console.log("ERROR. Something Went Wrong With The Top Button");
     }
 });
 
 bottomButton.addEventListener('click', (e) => {
     if (bottomButton.className == "btnViewTasks") {
+        //Display All Tasks
         bottomButton.className = "btnCreateBottom";
         bottomButton.innerHTML = "Create New Task";
 
@@ -65,6 +70,7 @@ bottomButton.addEventListener('click', (e) => {
         changeDisplay(allTasks, 'block');
     }
     else if (bottomButton.className == "btnCreateBottom") {
+        //Display Create Task Page
         bottomButton.className = "btnViewTasks";
         bottomButton.innerHTML = "View All Tasks";
 
@@ -83,10 +89,11 @@ bottomButton.addEventListener('click', (e) => {
         document.getElementById("formHeader").innerHTML = "Create New Task";
     }
     else {
-        console.log("ERROR. Something Went Wrong With The Bottom Button");
+        //console.log("ERROR. Something Went Wrong With The Bottom Button");
     }
 })
 
+//Change Display Style Property
 function changeDisplay(tab, display) {
     let i;
     let tabLength = tab.length;
